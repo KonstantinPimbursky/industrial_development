@@ -64,7 +64,7 @@ class LogInViewController: UIViewController {
         let someView = UIView()
         someView.translatesAutoresizingMaskIntoConstraints = false
         someView.clipsToBounds = true
-//        someView.backgroundColor = .systemGray6
+        someView.backgroundColor = UIColor(named: "Gray6")
         someView.layer.cornerRadius = 10
         someView.layer.borderColor = UIColor.lightGray.cgColor
         someView.layer.borderWidth = 0.5

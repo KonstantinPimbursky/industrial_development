@@ -29,7 +29,7 @@ class PhotosTableViewCell: UITableViewCell {
     private let arrowImage: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-//        imageView.image = UIImage.init(systemName: "arrow.right")
+        imageView.image = UIImage.init(named: "arrow.right")
         imageView.tintColor = UIColor.black
         return imageView
     }()

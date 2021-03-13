@@ -19,23 +19,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let vc = storyboard.instantiateViewController(withIdentifier: "TabBarController")
         self.window!.rootViewController = vc
         self.window!.makeKeyAndVisible()
+        print(type(of: self), #function)
         return true
     }
     
     func applicationWillEnterForeground(_ application: UIApplication) {
-        
+        print(type(of: self), #function)
     }
     
     func applicationDidBecomeActive(_ application: UIApplication) {
-        
+        print(type(of: self), #function)
     }
     
     func applicationWillResignActive(_ application: UIApplication) {
-        
+        print(type(of: self), #function)
     }
     
     func applicationDidEnterBackground(_ application: UIApplication) {
-        
+        print(type(of: self), #function)
     }
 }
 
