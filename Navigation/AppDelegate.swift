@@ -37,6 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationDidEnterBackground(_ application: UIApplication) {
         print(type(of: self), #function)
+        //По умолчанию в бэкграунде работа запрещена. Время работы в бэкграунде меньше секунды.
     }
 }
 
