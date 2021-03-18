@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import iOSIntPackage
 
 class PostTableViewCell: UITableViewCell {
     
@@ -15,6 +16,10 @@ class PostTableViewCell: UITableViewCell {
         didSet {
             postAuthorLabel.text = post?.author
             postImageView.image = UIImage(named: post!.image)
+            let processor = ImageProcessor()
+            processor.processImage(sourceImage: postImageView.image!,
+                                   filter: .noir,
+                                   completion: { resultImage in postImageView.image = resultImage})
             postDescriptionLabel.text = post?.description
             likesLabel.text = "Likes: \(post!.likes)"
             viewsLabel.text = "Views: \(post!.views)"
