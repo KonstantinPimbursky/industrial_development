@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SnapKit
 
 class ProfileTableHeaderView: UITableViewHeaderFooterView {
     
@@ -30,13 +29,15 @@ class ProfileTableHeaderView: UITableViewHeaderFooterView {
         profileHeaderView.translatesAutoresizingMaskIntoConstraints = false
         profileHeaderView.backgroundColor = .lightGray
         
-        profileHeaderView.snp.makeConstraints{ (make) -> Void in
-            make.top.equalTo(contentView)
-            make.left.equalTo(contentView)
-            make.right.equalTo(contentView)
-            make.bottom.equalTo(contentView)
-            make.height.equalTo(220)
-        }
+        let constraints = [
+            profileHeaderView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            profileHeaderView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            profileHeaderView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            profileHeaderView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            profileHeaderView.heightAnchor.constraint(equalToConstant: 220)
+        ]
+        
+        NSLayoutConstraint.activate(constraints)
     }
 }
 

@@ -106,39 +106,32 @@ class ProfileHeaderView: UIView {
     }
     
     private func setupViews() {
-        avatarImageView.snp.makeConstraints { (make) -> Void in
-            make.top.equalTo(self.snp.top).offset(16)
-            make.left.equalTo(self.snp.left).offset(16)
-            make.height.equalTo(100)
-            make.width.equalTo(100)
-        }
+        let constraints = [
+            avatarImageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 16),
+            avatarImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+            avatarImageView.heightAnchor.constraint(equalToConstant: 100),
+            avatarImageView.widthAnchor.constraint(equalToConstant: 100),
+            
+            fullNameLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 27),
+            fullNameLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 16),
+            fullNameLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+            
+            setStatusButton.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 40),
+            setStatusButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+            setStatusButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+            setStatusButton.heightAnchor.constraint(equalToConstant: 50),
+            
+            statusTextField.bottomAnchor.constraint(equalTo: setStatusButton.topAnchor, constant: -16),
+            statusTextField.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 16),
+            statusTextField.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+            statusTextField.heightAnchor.constraint(equalToConstant: 40),
+            
+            statusLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 16),
+            statusLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+            statusLabel.bottomAnchor.constraint(equalTo: statusTextField.topAnchor, constant: -10)
+        ]
         
-        fullNameLabel.snp.makeConstraints { (make) -> Void in
-            make.top.equalTo(self.snp.top).offset(27)
-            make.left.equalTo(avatarImageView.snp.right).offset(16)
-            make.right.equalTo(self.snp.right).offset(-16)
-        }
-        
-        setStatusButton.snp.makeConstraints { (make) -> Void in
-            make.top.equalTo(avatarImageView.snp.bottom).offset(40)
-            make.left.equalTo(self.snp.left).offset(16)
-            make.right.equalTo(self.snp.right).offset(-16)
-            make.height.equalTo(50)
-        }
-        
-        statusTextField.snp.makeConstraints { (make) -> Void in
-            make.bottom.equalTo(setStatusButton.snp.top).offset(-16)
-            make.left.equalTo(avatarImageView.snp.right).offset(16)
-            make.right.equalTo(self.snp.right).offset(-16)
-            make.height.equalTo(40)
-        }
-        
-        statusLabel.snp.makeConstraints { (make) -> Void in
-            make.left.equalTo(avatarImageView.snp.right).offset(16)
-            make.right.equalTo(self.snp.right).offset(-16)
-            make.bottom.equalTo(statusTextField.snp.top).offset(-10)
-        }
-
+        NSLayoutConstraint.activate(constraints)
     }
     
 }
