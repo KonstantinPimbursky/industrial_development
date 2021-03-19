@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SnapKit
+import iOSIntPackage
 
 class PostTableViewCell: UITableViewCell {
     
@@ -14,6 +16,10 @@ class PostTableViewCell: UITableViewCell {
         didSet {
             postAuthorLabel.text = post?.author
             postImageView.image = UIImage(named: post!.image)
+            let processor = ImageProcessor()
+            processor.processImage(sourceImage: postImageView.image!,
+                                   filter: .noir,
+                                   completion: { resultImage in postImageView.image = resultImage})
             postDescriptionLabel.text = post?.description
             likesLabel.text = "Likes: \(post!.likes)"
             viewsLabel.text = "Views: \(post!.views)"
@@ -77,29 +83,35 @@ class PostTableViewCell: UITableViewCell {
     private func setupViews() {
         contentView.addSubviews(postAuthorLabel, postImageView, postDescriptionLabel, likesLabel, viewsLabel)
         
-        let constraints = [
-            postAuthorLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
-            postAuthorLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            postAuthorLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-
-            postImageView.topAnchor.constraint(equalTo: postAuthorLabel.bottomAnchor, constant: 12),
-            postImageView.widthAnchor.constraint(equalTo: contentView.widthAnchor),
-            postImageView.heightAnchor.constraint(equalTo: postImageView.widthAnchor),
-            
-            postDescriptionLabel.topAnchor.constraint(equalTo: postImageView.bottomAnchor, constant: 16),
-            postDescriptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            postDescriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            
-            likesLabel.topAnchor.constraint(equalTo: postDescriptionLabel.bottomAnchor, constant: 16),
-            likesLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            likesLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
-            
-            viewsLabel.topAnchor.constraint(equalTo: postDescriptionLabel.bottomAnchor, constant: 16),
-            viewsLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            viewsLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
-        ]
+        postAuthorLabel.snp.makeConstraints { (make) -> Void in
+            make.top.equalTo(contentView.snp.top).offset(16)
+            make.left.equalTo(contentView.snp.left).offset(16)
+            make.right.equalTo(contentView.snp.right).offset(-16)
+        }
         
-        NSLayoutConstraint.activate(constraints)
+        postImageView.snp.makeConstraints { (make) -> Void in
+            make.top.equalTo(postAuthorLabel.snp.bottom).offset(12)
+            make.width.equalTo(contentView.snp.width)
+            make.height.equalTo(contentView.snp.width)
+        }
+        
+        postDescriptionLabel.snp.makeConstraints { (make) -> Void in
+            make.top.equalTo(postImageView.snp.bottom).offset(16)
+            make.left.equalTo(contentView.snp.left).offset(16)
+            make.right.equalTo(contentView.snp.right).offset(-16)
+        }
+        
+        likesLabel.snp.makeConstraints { (make) -> Void in
+            make.top.equalTo(postDescriptionLabel.snp.bottom).offset(16)
+            make.left.equalTo(contentView.snp.left).offset(16)
+            make.bottom.equalTo(contentView.snp.bottom).offset(-16)
+        }
+        
+        viewsLabel.snp.makeConstraints { (make) -> Void in
+            make.top.equalTo(postDescriptionLabel.snp.bottom).offset(16)
+            make.right.equalTo(contentView.snp.right).offset(-16)
+            make.bottom.equalTo(contentView.snp.bottom).offset(-16)
+        }
     }
 }
 
