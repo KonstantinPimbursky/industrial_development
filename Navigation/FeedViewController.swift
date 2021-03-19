@@ -12,6 +12,10 @@ final class FeedViewController: UIViewController {
     
     let post: Post = Post(title: "Пост")
     
+    private var updateTimer: Timer?
+    private var backgroundTask: UIBackgroundTaskIdentifier = .invalid
+    private var k = 0
+    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         print(type(of: self), #function)
@@ -25,6 +29,7 @@ final class FeedViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print(type(of: self), #function)
+        timer()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -65,5 +70,39 @@ final class FeedViewController: UIViewController {
             return
         }
         postViewController.post = post
+    }
+    
+    private func timer() {
+        updateTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self,
+                                           selector: #selector(calculateTime), userInfo: nil, repeats: true)
+        // register background task
+        registerBackgroundTask()
+    }
+    
+    @objc func calculateTime() {
+      switch UIApplication.shared.applicationState {
+      case .active:
+        print("App is active")
+      case .background:
+        k += 1
+        print("App is backgouded: \(k)")
+      case .inactive:
+        break
+      @unknown default:
+        break
+      }
+    }
+    
+    func registerBackgroundTask() {
+      backgroundTask = UIApplication.shared.beginBackgroundTask { [weak self] in
+        self?.endBackgroundTask()
+      }
+      assert(backgroundTask != .invalid)
+    }
+    
+    func endBackgroundTask() {
+      print("Background task ended.")
+      UIApplication.shared.endBackgroundTask(backgroundTask)
+      backgroundTask = .invalid
     }
 }
