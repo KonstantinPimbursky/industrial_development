@@ -9,6 +9,6 @@
 import Foundation
 
 protocol LoginViewControllerDelegate: class {
-    func checkLogin (login: String) -> Bool
-    func checkPassword (password: String) -> Bool
+    func checkLogin (login: String?) -> Bool
+    func checkPassword (password: String?) -> Bool
 }

@@ -18,13 +18,13 @@ struct LoginChecker {
         
     }
     
-    func checkLoginPassword (login: String) -> Bool {
-        guard login == savedLogin else { return false}
+    func checkLoginPassword (login: String?) -> Bool {
+        guard login != nil && login == savedLogin else { return false}
         return true
     }
     
-    func checkLoginPassword (password: String) -> Bool {
-        guard password == savedPassword else { return false }
+    func checkLoginPassword (password: String?) -> Bool {
+        guard password != nil && password == savedPassword else { return false }
         return true
     }
     

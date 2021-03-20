@@ -9,11 +9,11 @@
 import Foundation
 
 class LoginInspector: LoginViewControllerDelegate {
-    func checkLogin(login: String) -> Bool {
+    func checkLogin(login: String?) -> Bool {
         return LoginChecker.shared.checkLoginPassword(login: login)
     }
     
-    func checkPassword(password: String) -> Bool {
+    func checkPassword(password: String?) -> Bool {
         return LoginChecker.shared.checkLoginPassword(password: password)
     }
 }
