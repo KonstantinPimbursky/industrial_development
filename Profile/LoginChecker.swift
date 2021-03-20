@@ -8,9 +8,9 @@
 
 import Foundation
 
-struct Checker {
+struct LoginChecker {
     
-    static let shared = Checker()
+    static let shared = LoginChecker()
     private let savedLogin = "Kostya"
     private let savedPassword = "kostya123@"
     
@@ -18,8 +18,13 @@ struct Checker {
         
     }
     
-    func checkLoginPassword (login: String, password: String) -> Bool {
-        guard login == savedLogin && password == savedPassword else { return false }
+    func checkLoginPassword (login: String) -> Bool {
+        guard login == savedLogin else { return false}
+        return true
+    }
+    
+    func checkLoginPassword (password: String) -> Bool {
+        guard password == savedPassword else { return false }
         return true
     }
     

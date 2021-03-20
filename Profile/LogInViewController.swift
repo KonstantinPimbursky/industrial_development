@@ -89,7 +89,7 @@ class LogInViewController: UIViewController {
         return contentView
     }()
     
-    weak var delegate: LoginViewControllerDelegate?
+    var delegate: LoginViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
