@@ -10,8 +10,6 @@ import UIKit
 
 class LogInViewController: UIViewController {
     
-    
-    
     private let logoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .none
@@ -90,6 +88,8 @@ class LogInViewController: UIViewController {
         contentView.translatesAutoresizingMaskIntoConstraints = false
         return contentView
     }()
+    
+    weak var delegate: LoginViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
