@@ -24,7 +24,7 @@ struct LoginChecker {
             return true
         }
         if login == nil && password != nil {
-            guard password == savedPassword else { return false}
+            guard password == savedPassword else { return false }
             return true
         }
         return false

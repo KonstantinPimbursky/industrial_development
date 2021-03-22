@@ -131,8 +131,8 @@
 				B5384EC925CC018600932CCE /* Storage.swift */,
 				B5D959C525D66A9E00E742AB /* PhotosViewController.swift */,
 				B5D959C725D6C70400E742AB /* PhotosCollectionViewCell.swift */,
-				B5F1DF842605D216000B76FA /* LoginChecker.swift */,
 				B5F1DF872605D5AD000B76FA /* LoginViewControllerDelegate.swift */,
+				B5F1DF842605D216000B76FA /* LoginChecker.swift */,
 				B5F1DF8A2605D844000B76FA /* LoginInspector.swift */,
 			);
 			path = Profile;
