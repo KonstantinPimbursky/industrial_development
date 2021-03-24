@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class FeedViewController: UIViewController {
+final class FeedViewController: UIViewController, Storyboarded {
     
     let post: Post = Post(title: "Пост")
     
