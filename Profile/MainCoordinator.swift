@@ -26,6 +26,7 @@ class MainCoordinator: Coordinator {
     
     func start() {
         let feedViewController = FeedViewController.instantiate()
+        feedViewController.coordinator = self
         navigationController.pushViewController(feedViewController, animated: false)
     }
 }

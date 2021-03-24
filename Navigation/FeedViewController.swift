@@ -11,6 +11,7 @@ import UIKit
 final class FeedViewController: UIViewController, Storyboarded {
     
     let post: Post = Post(title: "Пост")
+    weak var coordinator: MainCoordinator?
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)

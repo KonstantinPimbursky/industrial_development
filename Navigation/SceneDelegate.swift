@@ -11,11 +11,10 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
+    var coordinator: MainCoordinator?
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-//        var coordinator: MainCoordinator?
-//        
 //        // create the main navigation controller to be used for our app
 //        let navController = UINavigationController()
 //
