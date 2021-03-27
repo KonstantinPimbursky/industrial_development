@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PostViewController: UIViewController {
+class PostViewController: UIViewController, Storyboarded {
     
     var post: Post?
 

@@ -13,22 +13,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     var coordinator: MainCoordinator?
 
-
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-//        // create the main navigation controller to be used for our app
-//        let navController = UINavigationController()
-//
-//        // send that into our coordinator so that it can display view controllers
-//        coordinator = MainCoordinator(navigationController: navController)
-//
-//        // tell the coordinator to take over control
-//        coordinator?.start()
-//
-//        // create a basic UIWindow and activate it
-//        window = UIWindow(frame: UIScreen.main.bounds)
-//        window?.rootViewController = navController
-//        window?.makeKeyAndVisible()
-        guard let _ = (scene as? UIWindowScene) else { return }
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        let navController = UINavigationController()
+        coordinator = MainCoordinator(navigationController: navController)
+        coordinator?.start()
+        window = UIWindow(frame: windowScene.coordinateSpace.bounds)
+        window?.windowScene = windowScene
+        window?.rootViewController = coordinator?.tabBarController
+        window?.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

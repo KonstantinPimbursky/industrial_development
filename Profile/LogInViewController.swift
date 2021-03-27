@@ -10,7 +10,7 @@ import UIKit
 
 class LogInViewController: UIViewController {
     
-    
+    weak var coordinator: ProfileCoordinator?
     
     private let logoImageView: UIImageView = {
         let imageView = UIImageView()
