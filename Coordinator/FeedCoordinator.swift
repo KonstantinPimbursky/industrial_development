@@ -10,7 +10,6 @@ import UIKit
 
 final class FeedCoordinator: Coordinator {
     
-    var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
     
     init(navController: UINavigationController) {

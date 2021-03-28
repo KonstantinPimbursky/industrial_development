@@ -9,7 +9,7 @@
 import UIKit
 
 class ProfileCoordinator: Coordinator {
-    var childCoordinators: [Coordinator] = []
+
     var navigationController: UINavigationController
     
     init(navController: UINavigationController) {
@@ -22,5 +22,15 @@ class ProfileCoordinator: Coordinator {
         navigationController.pushViewController(loginViewController, animated: true)
     }
     
+    func showProfileViewController() {
+        let profileViewController = ProfileViewController()
+        profileViewController.coordinator = self
+        navigationController.pushViewController(profileViewController, animated: true)
+    }
     
+    func showPhotosViewController() {
+        let photosViewController = PhotosViewController()
+        photosViewController.coordinator = self
+        navigationController.pushViewController(photosViewController, animated: true)
+    }
 }

@@ -10,6 +10,8 @@ import UIKit
 
 class PhotosViewController: UIViewController {
     
+    var coordinator: ProfileCoordinator?
+    
     private lazy var photosCollectionView: UICollectionView = {
         let celSize = CGSize(width: (UIScreen.main.bounds.width - 4*8)/3, height: (UIScreen.main.bounds.width - 4*8)/3)
         let layout = UICollectionViewFlowLayout()

@@ -10,7 +10,7 @@ import UIKit
 
 class LogInViewController: UIViewController {
     
-    weak var coordinator: ProfileCoordinator?
+    var coordinator: ProfileCoordinator?
     
     private let logoImageView: UIImageView = {
         let imageView = UIImageView()
@@ -156,9 +156,7 @@ class LogInViewController: UIViewController {
     }
     
     @objc func logInButtonPressed () {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let profileViewController = storyboard.instantiateViewController(withIdentifier: "ProfileViewController") as UIViewController
-        navigationController?.pushViewController(profileViewController, animated: true)
+        coordinator?.showProfileViewController()
     }
     
     /// Keyboard observers
