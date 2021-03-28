@@ -24,6 +24,14 @@ final class FeedCoordinator: Coordinator {
     }
     
     func showPostViewController() {
-        
+        let postViewController = PostViewController()
+        postViewController.coordinator = self
+        navigationController.pushViewController(postViewController, animated: true)
+    }
+    
+    func presentInfoViewController() {
+        let infoViewController = InfoViewController.instantiate()
+        infoViewController.coordinator = self
+        navigationController.present(infoViewController, animated: true, completion: nil)
     }
 }

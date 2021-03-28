@@ -45,12 +45,11 @@ class MainCoordinator: Coordinator {
         
         let feedCoordinator = FeedCoordinator(navController: feedNav)
         let profileCoordinator = ProfileCoordinator(navController: profileNav)
+        
         feedCoordinator.start()
         profileCoordinator.start()
+        
         tabBarController.viewControllers = [feedCoordinator.navigationController,
                                             profileCoordinator.navigationController]
-        let presenter = FeedViewController.instantiate()
-        navigationController.navigationBar.isHidden = true
-        navigationController.pushViewController(presenter, animated: true)
     }
 }

@@ -90,23 +90,6 @@
             <point key="canvasLocation" x="1654" y="197"/>
         </scene>
         <!--Feed-->
-        <scene sceneID="pR1-4r-6ob">
-            <objects>
-                <navigationController id="vyo-r6-qwt" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Feed" image="house.fill" catalog="system" id="0HN-zR-0uF"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="jwt-CW-Jdi">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="UOy-8g-tjm" kind="relationship" relationship="rootViewController" id="rOc-gJ-GNi"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="mxn-0X-Agz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-142" y="-541"/>
-        </scene>
-        <!--Feed-->
         <scene sceneID="bye-GP-P6Y">
             <objects>
                 <viewController storyboardIdentifier="FeedViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="UOy-8g-tjm" customClass="FeedViewController" customModule="Navigation" customModuleProvider="target" sceneMemberID="viewController">
@@ -121,14 +104,14 @@
                                         <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
                                         <state key="normal" title="Open post"/>
                                         <connections>
-                                            <segue destination="Gpo-I4-SnC" kind="show" id="L8Q-lQ-1sd"/>
+                                            <action selector="firstOpenPostAction:" destination="UOy-8g-tjm" eventType="touchUpInside" id="E9p-wC-ay8"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BWo-dK-pNt">
                                         <rect key="frame" x="0.0" y="40" width="72" height="30"/>
                                         <state key="normal" title="Open post"/>
                                         <connections>
-                                            <segue destination="Gpo-I4-SnC" kind="show" id="Vmn-7K-a9g"/>
+                                            <action selector="secondOpenPostAction:" destination="UOy-8g-tjm" eventType="touchUpInside" id="eZw-0m-5uE"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -158,11 +141,7 @@
                         <color key="backgroundColor" systemColor="systemPinkColor"/>
                     </view>
                     <navigationItem key="navigationItem" title="Post" id="N0m-Za-SVh">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Pkk-RI-ftz">
-                            <connections>
-                                <segue destination="A8n-Iq-F5E" kind="showDetail" id="9Y1-40-Yan"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Pkk-RI-ftz"/>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q0c-A3-Zaq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -172,13 +151,13 @@
         <!--Info View Controller-->
         <scene sceneID="4aZ-7w-8te">
             <objects>
-                <viewController id="A8n-Iq-F5E" customClass="InfoViewController" customModule="Navigation" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="InfoViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="A8n-Iq-F5E" customClass="InfoViewController" customModule="Navigation" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="CyQ-kq-0CI">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7My-cB-a4g">
-                                <rect key="frame" x="170.66666666666666" y="406" width="73" height="30"/>
+                                <rect key="frame" x="170.66666666666666" y="433" width="73" height="30"/>
                                 <state key="normal" title="Show alert"/>
                                 <connections>
                                     <action selector="showAlert:" destination="A8n-Iq-F5E" eventType="touchUpInside" id="YPe-Ts-Bhu"/>
@@ -234,11 +213,7 @@
             <point key="canvasLocation" x="742" y="197"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="L8Q-lQ-1sd"/>
-    </inferredMetricsTieBreakers>
     <resources>
-        <image name="house.fill" catalog="system" width="128" height="106"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

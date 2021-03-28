@@ -11,7 +11,7 @@ import UIKit
 final class FeedViewController: UIViewController, Storyboarded {
     
     let post: Post = Post(title: "Пост")
-    weak var coordinator: FeedCoordinator?
+    var coordinator: FeedCoordinator?
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -29,21 +29,12 @@ final class FeedViewController: UIViewController, Storyboarded {
     }
     
     @IBAction func firstOpenPostAction (_ sender: Any) {
-//        coordinator?.showPostViewController()
+        coordinator?.showPostViewController()
     }
     
     
     @IBAction func secondOpenPostAction(_ sender: Any) {
-//        coordinator?.showPostViewController()
+        coordinator?.showPostViewController()
     }
     
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        guard segue.identifier == "post" else {
-//            return
-//        }
-//        guard let postViewController = segue.destination as? PostViewController else {
-//            return
-//        }
-//        postViewController.post = post
-//    }
 }
