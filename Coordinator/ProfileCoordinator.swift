@@ -31,6 +31,7 @@ class ProfileCoordinator: Coordinator {
     func showPhotosViewController() {
         let photosViewController = PhotosViewController()
         photosViewController.coordinator = self
+        photosViewController.viewModel = PhotosViewModel()
         navigationController.pushViewController(photosViewController, animated: true)
     }
 }
