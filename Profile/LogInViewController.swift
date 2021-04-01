@@ -10,8 +10,6 @@ import UIKit
 
 class LogInViewController: UIViewController {
     
-    
-    
     private let logoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .none
@@ -90,6 +88,8 @@ class LogInViewController: UIViewController {
         contentView.translatesAutoresizingMaskIntoConstraints = false
         return contentView
     }()
+    
+    var delegate: LoginViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -156,9 +156,14 @@ class LogInViewController: UIViewController {
     }
     
     @objc func logInButtonPressed () {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let profileViewController = storyboard.instantiateViewController(withIdentifier: "ProfileViewController") as UIViewController
-        navigationController?.pushViewController(profileViewController, animated: true)
+        if self.delegate!.checkLogin(login: emailOrPhoneTextField.text) &&
+            self.delegate!.checkPassword(password: passwordTextField.text) {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let profileViewController = storyboard.instantiateViewController(withIdentifier: "ProfileViewController") as UIViewController
+            navigationController?.pushViewController(profileViewController, animated: true)
+        } else {
+            print("Неверно введен логин или пароль")
+        }
     }
     
     /// Keyboard observers
