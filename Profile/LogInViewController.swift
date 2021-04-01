@@ -89,6 +89,14 @@ class LogInViewController: UIViewController {
         return contentView
     }()
     
+    private let bruteForceButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Подобрать пароль", for: .normal)
+        button.setTitleColor(.link, for: .normal)
+        return button
+    }()
+    
     var delegate: LoginViewControllerDelegate?
 
     override func viewDidLoad() {
@@ -107,6 +115,7 @@ class LogInViewController: UIViewController {
         contentView.addSubview(emailOrPhoneTextField)
         contentView.addSubview(passwordTextField)
         contentView.addSubview(lineView)
+        contentView.addSubview(bruteForceButton)
         
         let contraints = [
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -137,6 +146,9 @@ class LogInViewController: UIViewController {
             logInButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             logInButton.heightAnchor.constraint(equalToConstant: 50),
             
+            bruteForceButton.topAnchor.constraint(equalTo: logInButton.bottomAnchor, constant: 16),
+            bruteForceButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            
             lineView.centerYAnchor.constraint(equalTo: loginPasswordView.centerYAnchor),
             lineView.leadingAnchor.constraint(equalTo: loginPasswordView.leadingAnchor),
             lineView.trailingAnchor.constraint(equalTo: loginPasswordView.trailingAnchor),
@@ -155,7 +167,7 @@ class LogInViewController: UIViewController {
         
     }
     
-    @objc func logInButtonPressed () {
+    @objc private func logInButtonPressed () {
         if self.delegate!.checkLogin(login: emailOrPhoneTextField.text) &&
             self.delegate!.checkPassword(password: passwordTextField.text) {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -164,6 +176,10 @@ class LogInViewController: UIViewController {
         } else {
             print("Неверно введен логин или пароль")
         }
+    }
+    
+    @objc private func bruteForceStart() {
+        
     }
     
     /// Keyboard observers
