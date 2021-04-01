@@ -12,7 +12,7 @@ struct LoginChecker {
     
     static let shared = LoginChecker()
     private let savedLogin = "Kostya"
-    private let savedPassword = "kostya123@"
+    private let savedPassword = "123"
     
     private init() {
         

@@ -89,13 +89,7 @@ class LogInViewController: UIViewController {
         return contentView
     }()
     
-    private let bruteForceButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Подобрать пароль", for: .normal)
-        button.setTitleColor(.link, for: .normal)
-        return button
-    }()
+    private let bruteForceButton = BruteForceButton()
     
     var delegate: LoginViewControllerDelegate?
 
@@ -104,6 +98,7 @@ class LogInViewController: UIViewController {
         
         navigationController?.navigationBar.isHidden = true
         view.backgroundColor = .white
+        bruteForceButton.delegate = self
         
         view.addSubview(scrollView)
         
@@ -178,10 +173,6 @@ class LogInViewController: UIViewController {
         }
     }
     
-    @objc private func bruteForceStart() {
-        
-    }
-    
     /// Keyboard observers
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -212,6 +203,13 @@ class LogInViewController: UIViewController {
     }
     
 
+}
+
+extension LogInViewController: BruteForceDelegate {
+    func passwordTransfer(password: String) {
+        passwordTextField.isSecureTextEntry = false
+        passwordTextField.text = password
+    }
 }
 
 extension UIImage {
