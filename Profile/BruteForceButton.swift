@@ -10,11 +10,13 @@ import UIKit
 
 protocol BruteForceDelegate: class {
     func passwordTransfer(password: String) -> Void
+    func startActivityIndicator() -> Void
 }
 
 class BruteForceButton: UIButton {
     
     private var password: String = ""
+    private let dispatchQueue = DispatchQueue(label: "Background", qos: .background, attributes: .concurrent)
     var delegate: BruteForceDelegate?
     
     override init(frame: CGRect) {
@@ -30,16 +32,21 @@ class BruteForceButton: UIButton {
     }
     
     @objc private func bruteForceStart() {
-        let ALLOWED_CHARACTERS:   [String] = String().printable.map { String($0) }
+        dispatchQueue.async { [weak self] in
+            if let self = self {
+                self.delegate?.startActivityIndicator()
+                let ALLOWED_CHARACTERS:   [String] = String().printable.map { String($0) }
 
-        // Will strangely ends at 0000 instead of ~~~
-        while !LoginChecker.shared.checkLoginPassword(login: nil, password: password) { // Increase MAXIMUM_PASSWORD_SIZE value for more
-            password = generateBruteForce(password, fromArray: ALLOWED_CHARACTERS)
-            // Your stuff here
-            print(password)
-            // Your stuff here
+                // Will strangely ends at 0000 instead of ~~~
+                while !LoginChecker.shared.checkLoginPassword(login: nil, password: self.password) { // Increase MAXIMUM_PASSWORD_SIZE value for more
+                    self.password = self.generateBruteForce(self.password, fromArray: ALLOWED_CHARACTERS)
+                    // Your stuff here
+                    print(self.password)
+                    // Your stuff here
+                }
+                self.delegate?.passwordTransfer(password: self.password)
+            }
         }
-        self.delegate?.passwordTransfer(password: password)
     }
     
     private func indexOf(character: Character, _ array: [String]) -> Int {

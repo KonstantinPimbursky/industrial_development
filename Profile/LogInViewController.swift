@@ -91,6 +91,12 @@ class LogInViewController: UIViewController {
     
     private let bruteForceButton = BruteForceButton()
     
+    private let activityIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView()
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        return indicator
+    }()
+    
     var delegate: LoginViewControllerDelegate?
 
     override func viewDidLoad() {
@@ -111,6 +117,7 @@ class LogInViewController: UIViewController {
         contentView.addSubview(passwordTextField)
         contentView.addSubview(lineView)
         contentView.addSubview(bruteForceButton)
+        contentView.addSubview(activityIndicator)
         
         let contraints = [
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -143,6 +150,9 @@ class LogInViewController: UIViewController {
             
             bruteForceButton.topAnchor.constraint(equalTo: logInButton.bottomAnchor, constant: 16),
             bruteForceButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            
+            activityIndicator.leadingAnchor.constraint(equalTo: bruteForceButton.trailingAnchor, constant: 8),
+            activityIndicator.centerYAnchor.constraint(equalTo: bruteForceButton.centerYAnchor),
             
             lineView.centerYAnchor.constraint(equalTo: loginPasswordView.centerYAnchor),
             lineView.leadingAnchor.constraint(equalTo: loginPasswordView.leadingAnchor),
@@ -207,8 +217,21 @@ class LogInViewController: UIViewController {
 
 extension LogInViewController: BruteForceDelegate {
     func passwordTransfer(password: String) {
-        passwordTextField.isSecureTextEntry = false
-        passwordTextField.text = password
+        DispatchQueue.main.async { [weak self] in
+            if let self = self {
+                self.activityIndicator.stopAnimating()
+                self.passwordTextField.isSecureTextEntry = false
+                self.passwordTextField.text = password
+            }
+        }
+    }
+    
+    func startActivityIndicator() {
+        DispatchQueue.main.async { [weak self] in
+            if let self = self {
+                self.activityIndicator.startAnimating()
+            }
+        }
     }
 }
 
