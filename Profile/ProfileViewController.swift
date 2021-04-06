@@ -11,8 +11,14 @@ import UIKit
 class ProfileViewController: UIViewController {
     
     private let tableView = UITableView(frame: .zero, style: .grouped)
-    
     private let profileTableHeaderView = ProfileTableHeaderView()
+    private var timerCount = 30
+    
+    private let timerLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,11 +26,27 @@ class ProfileViewController: UIViewController {
         view.backgroundColor = .lightGray
         setTableView()
         setupViews()
+        let timer = Timer(timeInterval: 1, repeats: true) { (_) in
+            self.timerCount -= 1
+            self.timerLabel.text = "\(self.timerCount)"
+        }
         
+        let timerToPop = Timer.scheduledTimer(timeInterval: 30,
+                                              target: self,
+                                              selector: #selector(popToLoginViewController),
+                                              userInfo: nil,
+                                              repeats: true)
+        
+        RunLoop.main.add(timer, forMode: .common)
+        RunLoop.main.add(timerToPop, forMode: .common)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.navigationBar.isHidden = true
+    }
+    
+    @objc private func popToLoginViewController() {
+        navigationController?.popToRootViewController(animated: true)
     }
     
     func setTableView () {
@@ -47,12 +69,16 @@ class ProfileViewController: UIViewController {
     func setupViews() {
         
         view.addSubview(tableView)
+        view.addSubview(timerLabel)
         
         let contraints = [
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            
+            timerLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
+            timerLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16)
         ]
         
         NSLayoutConstraint.activate(contraints)
