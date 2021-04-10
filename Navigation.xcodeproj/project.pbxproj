@@ -16,6 +16,7 @@
 		060782C6250CEB0A00A87020 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 060782C5250CEB0A00A87020 /* InfoViewController.swift */; };
 		060782C8250CEE5D00A87020 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 060782C7250CEE5D00A87020 /* PostViewController.swift */; };
 		060782CA250CEE7200A87020 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 060782C9250CEE7200A87020 /* Post.swift */; };
+		B518B629261EFCE7003FD14F /* LoginPasswordError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B518B628261EFCE7003FD14F /* LoginPasswordError.swift */; };
 		B535897B2603D0AE00607A58 /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = B535897A2603D0AE00607A58 /* iOSIntPackage */; };
 		B5384ECA25CC018600932CCE /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5384EC925CC018600932CCE /* Storage.swift */; };
 		B5384ECC25CC5F0E00932CCE /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5384ECB25CC5F0E00932CCE /* PostTableViewCell.swift */; };
@@ -46,6 +47,7 @@
 		060782C9250CEE7200A87020 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		0BB3B66C2F267D390B920A39 /* Pods_Navigation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Navigation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABC7FD54B49DCED76A440D06 /* Pods-Navigation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Navigation.release.xcconfig"; path = "Target Support Files/Pods-Navigation/Pods-Navigation.release.xcconfig"; sourceTree = "<group>"; };
+		B518B628261EFCE7003FD14F /* LoginPasswordError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPasswordError.swift; sourceTree = "<group>"; };
 		B5384EC925CC018600932CCE /* Storage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		B5384ECB25CC5F0E00932CCE /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		B5384ECD25CD3F8C00932CCE /* ProfileTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableHeaderView.swift; sourceTree = "<group>"; };
@@ -77,6 +79,7 @@
 		060782A5250CE27700A87020 = {
 			isa = PBXGroup;
 			children = (
+				B518B627261EFCC9003FD14F /* Errors */,
 				B592209725B0AF560040E2D7 /* Profile */,
 				060782B0250CE27700A87020 /* Navigation */,
 				060782AF250CE27700A87020 /* Products */,
@@ -117,6 +120,14 @@
 				ABC7FD54B49DCED76A440D06 /* Pods-Navigation.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		B518B627261EFCC9003FD14F /* Errors */ = {
+			isa = PBXGroup;
+			children = (
+				B518B628261EFCE7003FD14F /* LoginPasswordError.swift */,
+			);
+			path = Errors;
 			sourceTree = "<group>";
 		};
 		B592209725B0AF560040E2D7 /* Profile */ = {
@@ -278,6 +289,7 @@
 				B5F1DF882605D5AD000B76FA /* LoginViewControllerDelegate.swift in Sources */,
 				B5F1DF8B2605D844000B76FA /* LoginInspector.swift in Sources */,
 				B5384ECE25CD3F8C00932CCE /* ProfileTableHeaderView.swift in Sources */,
+				B518B629261EFCE7003FD14F /* LoginPasswordError.swift in Sources */,
 				B5D959C425D1358A00E742AB /* PhotosTableViewCell.swift in Sources */,
 				B592209B25B0AFBE0040E2D7 /* ProfileViewController.swift in Sources */,
 				B5F1DF852605D216000B76FA /* LoginChecker.swift in Sources */,
