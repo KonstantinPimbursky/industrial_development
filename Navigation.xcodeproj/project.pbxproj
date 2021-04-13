@@ -16,7 +16,6 @@
 		060782C6250CEB0A00A87020 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 060782C5250CEB0A00A87020 /* InfoViewController.swift */; };
 		060782C8250CEE5D00A87020 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 060782C7250CEE5D00A87020 /* PostViewController.swift */; };
 		060782CA250CEE7200A87020 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 060782C9250CEE7200A87020 /* Post.swift */; };
-		B518B61826162C62003FD14F /* BruteForceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B518B61726162C62003FD14F /* BruteForceButton.swift */; };
 		B535897B2603D0AE00607A58 /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = B535897A2603D0AE00607A58 /* iOSIntPackage */; };
 		B5384ECA25CC018600932CCE /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5384EC925CC018600932CCE /* Storage.swift */; };
 		B5384ECC25CC5F0E00932CCE /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5384ECB25CC5F0E00932CCE /* PostTableViewCell.swift */; };
@@ -47,7 +46,6 @@
 		060782C9250CEE7200A87020 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		0BB3B66C2F267D390B920A39 /* Pods_Navigation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Navigation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABC7FD54B49DCED76A440D06 /* Pods-Navigation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Navigation.release.xcconfig"; path = "Target Support Files/Pods-Navigation/Pods-Navigation.release.xcconfig"; sourceTree = "<group>"; };
-		B518B61726162C62003FD14F /* BruteForceButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BruteForceButton.swift; sourceTree = "<group>"; };
 		B5384EC925CC018600932CCE /* Storage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		B5384ECB25CC5F0E00932CCE /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		B5384ECD25CD3F8C00932CCE /* ProfileTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableHeaderView.swift; sourceTree = "<group>"; };
@@ -136,7 +134,6 @@
 				B5F1DF872605D5AD000B76FA /* LoginViewControllerDelegate.swift */,
 				B5F1DF842605D216000B76FA /* LoginChecker.swift */,
 				B5F1DF8A2605D844000B76FA /* LoginInspector.swift */,
-				B518B61726162C62003FD14F /* BruteForceButton.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -272,7 +269,6 @@
 			files = (
 				B5384ECC25CC5F0E00932CCE /* PostTableViewCell.swift in Sources */,
 				060782B6250CE27700A87020 /* FeedViewController.swift in Sources */,
-				B518B61826162C62003FD14F /* BruteForceButton.swift in Sources */,
 				060782B2250CE27700A87020 /* AppDelegate.swift in Sources */,
 				B5D90E1825C0721600521116 /* LogInViewController.swift in Sources */,
 				060782C6250CEB0A00A87020 /* InfoViewController.swift in Sources */,
