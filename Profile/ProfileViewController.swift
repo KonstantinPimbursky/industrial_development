@@ -20,33 +20,37 @@ class ProfileViewController: UIViewController {
         return label
     }()
     
+    private var timer: Timer?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .lightGray
         setTableView()
         setupViews()
-        let timer = Timer(timeInterval: 1, repeats: true) { (_) in
-            self.timerCount -= 1
-            self.timerLabel.text = "\(self.timerCount)"
-        }
-        
-        let timerToPop = Timer.scheduledTimer(timeInterval: 30,
-                                              target: self,
-                                              selector: #selector(popToLoginViewController),
-                                              userInfo: nil,
-                                              repeats: true)
-        
-        RunLoop.main.add(timer, forMode: .common)
-        RunLoop.main.add(timerToPop, forMode: .common)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.navigationBar.isHidden = true
+        if timer == nil {
+            timerCount = 30
+            let timer = Timer(timeInterval: 1, repeats: true) { (_) in
+                if self.timerCount != 0 {
+                    self.timerCount -= 1
+                    self.timerLabel.text = "\(self.timerCount)"
+                } else {
+                    self.navigationController?.popToRootViewController(animated: true)
+                }
+            }
+            self.timer = timer
+        }
+        
+        RunLoop.current.add(timer!, forMode: .common)
     }
     
-    @objc private func popToLoginViewController() {
-        navigationController?.popToRootViewController(animated: true)
+    override func viewWillDisappear(_ animated: Bool) {
+        timer?.invalidate()
+        self.timer = nil
     }
     
     func setTableView () {
