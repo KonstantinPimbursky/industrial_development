@@ -182,14 +182,28 @@ class LogInViewController: UIViewController {
         
     }
     
-    @objc private func logInButtonPressed () {
+    @objc func logInButtonPressed () {
+        checkLoginPassword { result in
+            switch result {
+            case .success(_):
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let profileViewController = storyboard.instantiateViewController(withIdentifier: "ProfileViewController") as UIViewController
+                navigationController?.pushViewController(profileViewController, animated: true)
+            case .failure(_):
+                let alertController = UIAlertController(title: "Ошибка", message: "Неверно введен логин или пароль", preferredStyle: .alert)
+                let acceptAction = UIAlertAction(title: "ОК", style: .default)
+                alertController.addAction(acceptAction)
+                self.present(alertController, animated: true, completion: nil)
+            }
+        }
+    }
+    
+    private func checkLoginPassword(completion: (Result<Bool,LoginPasswordError>) -> Void)  {
         if self.delegate!.checkLogin(login: emailOrPhoneTextField.text) &&
             self.delegate!.checkPassword(password: passwordTextField.text) {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let profileViewController = storyboard.instantiateViewController(withIdentifier: "ProfileViewController") as UIViewController
-            navigationController?.pushViewController(profileViewController, animated: true)
+            return completion(.success(true))
         } else {
-            print("Неверно введен логин или пароль")
+            return completion(.failure(LoginPasswordError.incorrectLoginOrPassword))
         }
     }
     
