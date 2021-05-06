@@ -121,24 +121,6 @@
             </objects>
             <point key="canvasLocation" x="742.02898550724649" y="-541.07142857142856"/>
         </scene>
-        <!--Post-->
-        <scene sceneID="9oM-mS-hYy">
-            <objects>
-                <viewController id="Gpo-I4-SnC" customClass="PostViewController" customModule="Navigation" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="NJr-hs-eEz">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="qcf-0q-WgP"/>
-                        <color key="backgroundColor" systemColor="systemPinkColor"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Post" id="N0m-Za-SVh">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Pkk-RI-ftz"/>
-                    </navigationItem>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="q0c-A3-Zaq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1655" y="-541"/>
-        </scene>
         <!--Info View Controller-->
         <scene sceneID="4aZ-7w-8te">
             <objects>
@@ -227,9 +209,6 @@
         </systemColor>
         <systemColor name="systemGreenColor">
             <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemPinkColor">
-            <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemTealColor">
             <color red="0.35294117647058826" green="0.78431372549019607" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
