@@ -26,6 +26,9 @@
 		B5D959C425D1358A00E742AB /* PhotosTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D959C325D1358A00E742AB /* PhotosTableViewCell.swift */; };
 		B5D959C625D66A9E00E742AB /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D959C525D66A9E00E742AB /* PhotosViewController.swift */; };
 		B5D959C825D6C70400E742AB /* PhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D959C725D6C70400E742AB /* PhotosCollectionViewCell.swift */; };
+		B5F1DF852605D216000B76FA /* LoginChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1DF842605D216000B76FA /* LoginChecker.swift */; };
+		B5F1DF882605D5AD000B76FA /* LoginViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1DF872605D5AD000B76FA /* LoginViewControllerDelegate.swift */; };
+		B5F1DF8B2605D844000B76FA /* LoginInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1DF8A2605D844000B76FA /* LoginInspector.swift */; };
 		EDBF37B7A6B6A7F41E0FD987 /* Pods_Navigation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB3B66C2F267D390B920A39 /* Pods_Navigation.framework */; };
 /* End PBXBuildFile section */
 
@@ -52,6 +55,9 @@
 		B5D959C325D1358A00E742AB /* PhotosTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosTableViewCell.swift; sourceTree = "<group>"; };
 		B5D959C525D66A9E00E742AB /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
 		B5D959C725D6C70400E742AB /* PhotosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewCell.swift; sourceTree = "<group>"; };
+		B5F1DF842605D216000B76FA /* LoginChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginChecker.swift; sourceTree = "<group>"; };
+		B5F1DF872605D5AD000B76FA /* LoginViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewControllerDelegate.swift; sourceTree = "<group>"; };
+		B5F1DF8A2605D844000B76FA /* LoginInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInspector.swift; sourceTree = "<group>"; };
 		F5581D44EC722B4125E813C4 /* Pods-Navigation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Navigation.debug.xcconfig"; path = "Target Support Files/Pods-Navigation/Pods-Navigation.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -125,6 +131,9 @@
 				B5384EC925CC018600932CCE /* Storage.swift */,
 				B5D959C525D66A9E00E742AB /* PhotosViewController.swift */,
 				B5D959C725D6C70400E742AB /* PhotosCollectionViewCell.swift */,
+				B5F1DF872605D5AD000B76FA /* LoginViewControllerDelegate.swift */,
+				B5F1DF842605D216000B76FA /* LoginChecker.swift */,
+				B5F1DF8A2605D844000B76FA /* LoginInspector.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -266,9 +275,12 @@
 				060782CA250CEE7200A87020 /* Post.swift in Sources */,
 				060782B4250CE27700A87020 /* SceneDelegate.swift in Sources */,
 				B5384ED025CD440000932CCE /* ProfileHeaderView.swift in Sources */,
+				B5F1DF882605D5AD000B76FA /* LoginViewControllerDelegate.swift in Sources */,
+				B5F1DF8B2605D844000B76FA /* LoginInspector.swift in Sources */,
 				B5384ECE25CD3F8C00932CCE /* ProfileTableHeaderView.swift in Sources */,
 				B5D959C425D1358A00E742AB /* PhotosTableViewCell.swift in Sources */,
 				B592209B25B0AFBE0040E2D7 /* ProfileViewController.swift in Sources */,
+				B5F1DF852605D216000B76FA /* LoginChecker.swift in Sources */,
 				B5D959C825D6C70400E742AB /* PhotosCollectionViewCell.swift in Sources */,
 				B5D959C625D66A9E00E742AB /* PhotosViewController.swift in Sources */,
 				060782C8250CEE5D00A87020 /* PostViewController.swift in Sources */,
