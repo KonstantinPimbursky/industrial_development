@@ -7,63 +7,97 @@
 //
 
 import UIKit
+import SnapKit
 
-final class FeedViewController: UIViewController {
+// MARK: - FeedViewOutput
+protocol FeedViewOutput {
+    
+    var navigationController: UINavigationController? { get set }
+    
+    func showPost(_: Post)
+}
+
+// MARK: - ContainerView
+class ContainerView: UIStackView {
     
     let post: Post = Post(title: "Пост")
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        print(type(of: self), #function)
+    private let postButtonFirst: UIButton = {
+        let button = UIButton()
+        button.setTitle("Open Post", for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.layer.masksToBounds = true
+        button.setTitleColor(.link, for: .normal)
+        button.addTarget(self, action: #selector(postButtonAction), for: .touchUpInside)
+        return button
+    }()
+    
+    private let postButtonSecond: UIButton = {
+        let button = UIButton()
+        button.setTitle("Open Post", for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.layer.masksToBounds = true
+        button.setTitleColor(.link, for: .normal)
+        button.addTarget(self, action: #selector(postButtonAction), for: .touchUpInside)
+        return button
+    }()
+    
+    var onTap: ((Post) -> Void)?
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupViews()
     }
     
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        print(type(of: self), #function)
+    required init(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
+    
+    @objc private func postButtonAction() {
+        guard onTap != nil else { return }
+        onTap!(post)
+    }
+    
+    private func setupViews() {
+        self.addArrangedSubview(postButtonFirst)
+        self.addArrangedSubview(postButtonSecond)
+        self.axis = .vertical
+        self.spacing = 10
+    }
+}
+
+
+// MARK: - PostPresenter
+class PostPresenter: FeedViewOutput {
+    
+    var navigationController: UINavigationController?
+    
+    func showPost(_ post: Post) {
+        let postViewController = PostViewController()
+        postViewController.post = post
+        navigationController?.pushViewController(postViewController, animated: true)
+    }
+}
+
+// MARK: - FeedViewController
+final class FeedViewController: UIViewController {
+    
+    private let output = PostPresenter()
+    private let containerView = ContainerView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(type(of: self), #function)
+        output.navigationController = navigationController
+        setupViews()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        print(type(of: self), #function)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        print(type(of: self), #function)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        print(type(of: self), #function)
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        print(type(of: self), #function)
-    }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        print(type(of: self), #function)
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        print(type(of: self), #function)
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard segue.identifier == "post" else {
-            return
+    private func setupViews() {
+        view.addSubview(containerView)
+        containerView.onTap = output.showPost
+        containerView.snp.makeConstraints{ make in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview()
         }
-        guard let postViewController = segue.destination as? PostViewController else {
-            return
-        }
-        postViewController.post = post
     }
+    
 }

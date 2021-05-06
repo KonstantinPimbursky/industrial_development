@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class PhotosTableViewCell: UITableViewCell {
     
@@ -48,19 +49,22 @@ class PhotosTableViewCell: UITableViewCell {
     }
     
     private func setupViews() {
-        let constraints = [
-            photosLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
-            photosLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
-            
-            stackOfPhotos.topAnchor.constraint(equalTo: photosLabel.bottomAnchor, constant: 12),
-            stackOfPhotos.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12),
-            stackOfPhotos.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
-            
-            arrowImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
-            arrowImage.centerYAnchor.constraint(equalTo: photosLabel.centerYAnchor)
-        ]
-        
-        NSLayoutConstraint.activate(constraints)
+
+        photosLabel.snp.makeConstraints { (make) -> Void in
+            make.top.equalTo(contentView).offset(12)
+            make.left.equalTo(contentView).offset(12)
+        }
+
+        stackOfPhotos.snp.makeConstraints { (make) -> Void in
+            make.top.equalTo(photosLabel.snp.bottom).offset(12)
+            make.bottom.equalTo(contentView).offset(-12)
+            make.left.equalTo(contentView).offset(12)
+        }
+
+        arrowImage.snp.makeConstraints { (make) -> Void in
+            make.right.equalTo(contentView).offset(-12)
+            make.centerY.equalTo(photosLabel.snp.centerY)
+        }
     }
     
     private func setupStackOfPhotos() {
@@ -71,8 +75,10 @@ class PhotosTableViewCell: UITableViewCell {
             imageView.clipsToBounds = true
             imageView.contentMode = .scaleAspectFill
             imageView.layer.cornerRadius = 6
-            imageView.widthAnchor.constraint(equalToConstant: (UIScreen.main.bounds.width - 48)/4).isActive = true
-            imageView.heightAnchor.constraint(equalToConstant: (UIScreen.main.bounds.width - 48)/4).isActive = true
+            imageView.snp.makeConstraints { (make) -> Void in
+                make.width.equalTo((UIScreen.main.bounds.width - 48)/4)
+                make.height.equalTo((UIScreen.main.bounds.width - 48)/4)
+            }
             stackOfPhotos.addArrangedSubview(imageView)
         }
 
