@@ -10,8 +10,6 @@ import UIKit
 
 class LogInViewController: UIViewController {
     
-    
-    
     private let logoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .none
@@ -90,6 +88,8 @@ class LogInViewController: UIViewController {
         contentView.translatesAutoresizingMaskIntoConstraints = false
         return contentView
     }()
+    
+    var delegate: LoginViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -156,9 +156,28 @@ class LogInViewController: UIViewController {
     }
     
     @objc func logInButtonPressed () {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let profileViewController = storyboard.instantiateViewController(withIdentifier: "ProfileViewController") as UIViewController
-        navigationController?.pushViewController(profileViewController, animated: true)
+        checkLoginPassword { result in
+            switch result {
+            case .success(_):
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let profileViewController = storyboard.instantiateViewController(withIdentifier: "ProfileViewController") as UIViewController
+                navigationController?.pushViewController(profileViewController, animated: true)
+            case .failure(_):
+                let alertController = UIAlertController(title: "Ошибка", message: "Неверно введен логин или пароль", preferredStyle: .alert)
+                let acceptAction = UIAlertAction(title: "ОК", style: .default)
+                alertController.addAction(acceptAction)
+                self.present(alertController, animated: true, completion: nil)
+            }
+        }
+    }
+    
+    private func checkLoginPassword(completion: (Result<Bool,LoginPasswordError>) -> Void)  {
+        if self.delegate!.checkLogin(login: emailOrPhoneTextField.text) &&
+            self.delegate!.checkPassword(password: passwordTextField.text) {
+            return completion(.success(true))
+        } else {
+            return completion(.failure(LoginPasswordError.incorrectLoginOrPassword))
+        }
     }
     
     /// Keyboard observers
