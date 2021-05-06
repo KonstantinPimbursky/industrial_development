@@ -11,9 +11,16 @@ import UIKit
 class PostViewController: UIViewController {
     
     var post: Post?
+    var coordinator: FeedCoordinator?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         title = post?.title
+        view.backgroundColor = .systemPink
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(presentInfoViewController))
+    }
+    
+    @objc func presentInfoViewController() {
+        coordinator?.presentInfoViewController()
     }
 }

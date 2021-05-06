@@ -8,7 +8,9 @@
 
 import UIKit
 
-class InfoViewController: UIViewController {
+class InfoViewController: UIViewController, Storyboarded {
+    
+    var coordinator: FeedCoordinator?
 
     override func viewDidLoad() {
         super.viewDidLoad()

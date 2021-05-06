@@ -14,6 +14,8 @@ class ProfileViewController: UIViewController {
     
     private let profileTableHeaderView = ProfileTableHeaderView()
     
+    var coordinator: ProfileCoordinator?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -109,7 +111,15 @@ extension ProfileViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard indexPath.section == 0 else { return }
-        let photosViewController = PhotosViewController()
-        navigationController?.pushViewController(photosViewController, animated: true)
+        coordinator?.showPhotosViewController()
+    }
+    
+    func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+        switch indexPath.section {
+        case 0:
+            return true
+        default:
+            return false
+        }
     }
 }

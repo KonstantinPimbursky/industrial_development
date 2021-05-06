@@ -10,6 +10,9 @@ import UIKit
 
 class PhotosViewController: UIViewController {
     
+    var coordinator: ProfileCoordinator?
+    var viewModel: PhotosViewOutput?
+    
     private lazy var photosCollectionView: UICollectionView = {
         let celSize = CGSize(width: (UIScreen.main.bounds.width - 4*8)/3, height: (UIScreen.main.bounds.width - 4*8)/3)
         let layout = UICollectionViewFlowLayout()
@@ -54,12 +57,14 @@ extension PhotosViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: PhotosCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotosCell", for: indexPath) as! PhotosCollectionViewCell
-        cell.photoName = Photos.images[indexPath.item]
+//        cell.photoName = Photos.images[indexPath.item]
+        cell.photoName = viewModel?.givePhotos(indexPath.item)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return Photos.images.count
+        guard let numberOfItemsInSection = viewModel?.countOfPhotos() else { return 0}
+        return numberOfItemsInSection
     }
     
     
