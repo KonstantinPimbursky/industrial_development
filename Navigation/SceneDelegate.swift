@@ -11,7 +11,7 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
+    var appConfiguration: AppConfiguration?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -24,6 +24,24 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
            let loginNavigation = tabController.viewControllers?.last as? UINavigationController,
            let loginController = loginNavigation.viewControllers.first as? LogInViewController {
             loginController.delegate = LoginInspector()
+        }
+        
+        appConfiguration = AppConfiguration.random()
+        switch appConfiguration {
+        case .people(let people):
+            NetworkService.dataTask(url: URL(string: people)!) { result in
+                print(result!)
+            }
+        case .planets(let planets):
+            NetworkService.dataTask(url: URL(string: planets)!) { result in
+                print(result!)
+            }
+        case .starships(let starships):
+            NetworkService.dataTask(url: URL(string: starships)!) { result in
+                print(result!)
+            }
+        default:
+            return
         }
     }
 

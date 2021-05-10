@@ -22,6 +22,8 @@
 		B5384ECC25CC5F0E00932CCE /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5384ECB25CC5F0E00932CCE /* PostTableViewCell.swift */; };
 		B5384ECE25CD3F8C00932CCE /* ProfileTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5384ECD25CD3F8C00932CCE /* ProfileTableHeaderView.swift */; };
 		B5384ED025CD440000932CCE /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5384ECF25CD440000932CCE /* ProfileHeaderView.swift */; };
+		B544C187264439C2008D4479 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B544C186264439C2008D4479 /* NetworkService.swift */; };
+		B544C18926443AB5008D4479 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B544C18826443AB5008D4479 /* AppConfiguration.swift */; };
 		B5786983263FED4D0067AC50 /* PostErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5786982263FED4D0067AC50 /* PostErrors.swift */; };
 		B592209B25B0AFBE0040E2D7 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B592209A25B0AFBE0040E2D7 /* ProfileViewController.swift */; };
 		B5D90E1825C0721600521116 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D90E1725C0721600521116 /* LogInViewController.swift */; };
@@ -53,6 +55,8 @@
 		B5384ECB25CC5F0E00932CCE /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		B5384ECD25CD3F8C00932CCE /* ProfileTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableHeaderView.swift; sourceTree = "<group>"; };
 		B5384ECF25CD440000932CCE /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
+		B544C186264439C2008D4479 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		B544C18826443AB5008D4479 /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 		B5786982263FED4D0067AC50 /* PostErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostErrors.swift; sourceTree = "<group>"; };
 		B592209A25B0AFBE0040E2D7 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		B5D90E1725C0721600521116 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
@@ -81,6 +85,7 @@
 		060782A5250CE27700A87020 = {
 			isa = PBXGroup;
 			children = (
+				B544C1852644399C008D4479 /* DataTask */,
 				B518B627261EFCC9003FD14F /* Errors */,
 				B592209725B0AF560040E2D7 /* Profile */,
 				060782B0250CE27700A87020 /* Navigation */,
@@ -131,6 +136,15 @@
 				B5786982263FED4D0067AC50 /* PostErrors.swift */,
 			);
 			path = Errors;
+			sourceTree = "<group>";
+		};
+		B544C1852644399C008D4479 /* DataTask */ = {
+			isa = PBXGroup;
+			children = (
+				B544C186264439C2008D4479 /* NetworkService.swift */,
+				B544C18826443AB5008D4479 /* AppConfiguration.swift */,
+			);
+			path = DataTask;
 			sourceTree = "<group>";
 		};
 		B592209725B0AF560040E2D7 /* Profile */ = {
@@ -294,8 +308,10 @@
 				B5F1DF8B2605D844000B76FA /* LoginInspector.swift in Sources */,
 				B5384ECE25CD3F8C00932CCE /* ProfileTableHeaderView.swift in Sources */,
 				B518B629261EFCE7003FD14F /* LoginPasswordError.swift in Sources */,
+				B544C187264439C2008D4479 /* NetworkService.swift in Sources */,
 				B5D959C425D1358A00E742AB /* PhotosTableViewCell.swift in Sources */,
 				B592209B25B0AFBE0040E2D7 /* ProfileViewController.swift in Sources */,
+				B544C18926443AB5008D4479 /* AppConfiguration.swift in Sources */,
 				B5F1DF852605D216000B76FA /* LoginChecker.swift in Sources */,
 				B5D959C825D6C70400E742AB /* PhotosCollectionViewCell.swift in Sources */,
 				B5D959C625D66A9E00E742AB /* PhotosViewController.swift in Sources */,
