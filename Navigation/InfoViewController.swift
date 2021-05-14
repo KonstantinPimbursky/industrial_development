@@ -8,9 +8,12 @@
 
 import UIKit
 import SnapKit
+import Foundation
 
 class InfoViewController: UIViewController {
 
+    var jsonPost: JsonPostModel?
+    
     private let showAlertButton: UIButton = {
         let button = UIButton()
         button.setTitle("Show Alert", for: .normal)
@@ -21,15 +24,30 @@ class InfoViewController: UIViewController {
         return button
     }()
     
+    private let jsonPostLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        return label
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        jsonPostLabel.text = jsonPost?.title
         view.addSubview(showAlertButton)
+        view.addSubview(jsonPostLabel)
         view.backgroundColor = .systemYellow
         showAlertButton.snp.makeConstraints{ make in
             make.centerX.equalToSuperview()
             make.centerY.equalToSuperview()
         }
+        jsonPostLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(16)
+            make.left.equalToSuperview().offset(16)
+            make.right.equalToSuperview().offset(-16)
+        }
+        
     }
     
     @objc func showAlert() {

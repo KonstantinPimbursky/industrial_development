@@ -27,6 +27,8 @@ class PostViewController: UIViewController {
     
     @objc private func showInfoViewController() {
         let infoViewController = InfoViewController()
+        InfoViewModel.shared.getPostJson()
+        infoViewController.jsonPost = InfoViewModel.shared.jsonPost
         present(infoViewController, animated: true, completion: nil)
     }
     
