@@ -35,7 +35,7 @@ import UIKit
          task.resume()
      }
     
-    static func getDataForPostJson (url: URL, completion: @escaping ([String:Any]?) -> Void) {
+    static func getDataForPostModel (url: URL, completion: @escaping ([String:Any]?) -> Void) {
         let task = session.dataTask(with: url) { data, response, error in
             guard error == nil else {
                 print(error.debugDescription)
@@ -43,11 +43,25 @@ import UIKit
             }
             guard let httpResponse = response as? HTTPURLResponse,
                httpResponse.statusCode == 200 else { return }
-            print(httpResponse.statusCode)
             if let dict = data {
                 let dictionary = try! JSONSerialization.jsonObject(with: dict, options: .mutableContainers) as! [String: Any]
-                print(dictionary)
                 completion(dictionary)
+            }
+        }
+        task.resume()
+    }
+    
+    static func getDataForPlanetModel (url: URL, completion: @escaping (Data?) -> Void) {
+        let request = URLRequest(url: url)
+        let task = session.dataTask(with: request) { data, response, error in
+            guard error == nil else {
+                print(error.debugDescription)
+                return
+            }
+            guard let httpResponse = response as? HTTPURLResponse,
+               httpResponse.statusCode == 200 else { return }
+            if let data = data {
+                completion(data)
             }
         }
         task.resume()

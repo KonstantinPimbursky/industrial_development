@@ -26,7 +26,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             loginController.delegate = LoginInspector()
         }
         
-        InfoViewModel.shared.getDataForJson()
+        InfoViewModel.shared.getDataForPostModel()
+        InfoViewModel.shared.getDataForPlanetModel()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

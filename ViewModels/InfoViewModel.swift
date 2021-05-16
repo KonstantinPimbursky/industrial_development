@@ -11,25 +11,42 @@ import UIKit
 class InfoViewModel {
     
     private let postUrl = URL(string: "https://jsonplaceholder.typicode.com/todos/\(Int.random(in: 1...200))")!
-    var jsonPost: JsonPostModel?
-    private var dataForJson: [String : Any]?
+    private let planetUrl = URL(string: "https://swapi.dev/api/planets/1/")!
+    private var dataForPostModel: [String : Any]?
+    private var dataForPlanetModel: Data?
+    var postModel: JsonPostModel?
+    var planetModel: JsonPlanetModel?
     static let shared = InfoViewModel()
     
     private init() {
         
     }
     
-    func getDataForJson() {
-        NetworkService.getDataForPostJson(url: postUrl) { dictionary in
-            self.dataForJson = dictionary
+    func getDataForPostModel() {
+        NetworkService.getDataForPostModel(url: postUrl) { dictionary in
+            self.dataForPostModel = dictionary
         }
     }
 
-    func getPostJson() {
-        self.jsonPost = JsonPostModel(userIdentifier: self.dataForJson?["userId"] as! Int,
-                                         identifier: self.dataForJson?["id"] as! Int,
-                                         title: self.dataForJson?["title"] as! String,
-                                         completed: self.dataForJson?["completed"] as! Bool)
+    func makePostModel() {
+        self.postModel = JsonPostModel(userIdentifier: self.dataForPostModel?["userId"] as! Int,
+                                         identifier: self.dataForPostModel?["id"] as! Int,
+                                         title: self.dataForPostModel?["title"] as! String,
+                                         completed: self.dataForPostModel?["completed"] as! Bool)
+    }
+    
+    func getDataForPlanetModel() {
+        NetworkService.getDataForPlanetModel(url: planetUrl) { data in
+            self.dataForPlanetModel = data
+        }
+    }
+    
+    func makePlanetModel() {
+        if let data = dataForPlanetModel {
+            self.planetModel = try? JSONDecoder().decode(JsonPlanetModel.self, from: data)
+        } else {
+            print("Отсутствует JSON планеты")
+        }
     }
 
 }
