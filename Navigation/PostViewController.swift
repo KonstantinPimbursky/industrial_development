@@ -27,6 +27,10 @@ class PostViewController: UIViewController {
     
     @objc private func showInfoViewController() {
         let infoViewController = InfoViewController()
+        InfoViewModel.shared.makePostModel()
+        InfoViewModel.shared.makePlanetModel()
+        infoViewController.postModel = InfoViewModel.shared.postModel
+        infoViewController.planetModel = InfoViewModel.shared.planetModel
         present(infoViewController, animated: true, completion: nil)
     }
     

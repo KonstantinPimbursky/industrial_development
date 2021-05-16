@@ -8,9 +8,13 @@
 
 import UIKit
 import SnapKit
+import Foundation
 
 class InfoViewController: UIViewController {
 
+    var postModel: JsonPostModel?
+    var planetModel: JsonPlanetModel?
+    
     private let showAlertButton: UIButton = {
         let button = UIButton()
         button.setTitle("Show Alert", for: .normal)
@@ -21,15 +25,44 @@ class InfoViewController: UIViewController {
         return button
     }()
     
+    private let postLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        return label
+    }()
+    
+    private let planetLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        return label
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        postLabel.text = postModel?.title
+        planetLabel.text = "Orbital Peoriod: \(planetModel!.orbitalPeriod)"
         view.addSubview(showAlertButton)
+        view.addSubview(postLabel)
+        view.addSubview(planetLabel)
         view.backgroundColor = .systemYellow
         showAlertButton.snp.makeConstraints{ make in
             make.centerX.equalToSuperview()
             make.centerY.equalToSuperview()
         }
+        postLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(16)
+            make.left.equalToSuperview().offset(16)
+            make.right.equalToSuperview().offset(-16)
+        }
+        planetLabel.snp.makeConstraints { make in
+            make.top.equalTo(postLabel.snp.bottom).offset(16)
+            make.left.equalToSuperview().offset(16)
+            make.right.equalToSuperview().offset(-16)
+        }
+        
     }
     
     @objc func showAlert() {

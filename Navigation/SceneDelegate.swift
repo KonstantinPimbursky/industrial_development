@@ -25,6 +25,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
            let loginController = loginNavigation.viewControllers.first as? LogInViewController {
             loginController.delegate = LoginInspector()
         }
+        
+        InfoViewModel.shared.getDataForPostModel()
+        InfoViewModel.shared.getDataForPlanetModel()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
