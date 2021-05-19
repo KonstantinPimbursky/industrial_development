@@ -9,5 +9,8 @@
 import UIKit
 
 enum LoginPasswordError: Error {
-    case incorrectLoginOrPassword
+    case acountNotAllowed
+    case userDisabled
+    case wrongPassword
+    case invalidEmail
 }

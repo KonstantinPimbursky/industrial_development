@@ -13,11 +13,12 @@ class ProfileViewController: UIViewController {
     
     private let tableView = UITableView(frame: .zero, style: .grouped)
     
-    private let profileTableHeaderView = ProfileTableHeaderView()
+    private var profileTableHeaderView = ProfileTableHeaderView()
+    
+    var signOut: (() -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = .lightGray
         setTableView()
         setupViews()
@@ -55,6 +56,10 @@ class ProfileViewController: UIViewController {
             make.right.equalTo(view.safeAreaLayoutGuide)
             make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
+    }
+    
+    private func logOut() {
+        signOut!()
     }
 }
 
@@ -103,6 +108,7 @@ extension ProfileViewController: UITableViewDelegate {
         guard section == 0 else { return nil }
         let headerView = tableView.dequeueReusableHeaderFooterView(
         withIdentifier: String(describing: ProfileTableHeaderView.self)) as! ProfileTableHeaderView
+        headerView.signOut = logOut
         return headerView
     }
     

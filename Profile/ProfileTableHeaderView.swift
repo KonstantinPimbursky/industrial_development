@@ -8,22 +8,28 @@
 
 import UIKit
 import SnapKit
+import SwiftUI
 
 class ProfileTableHeaderView: UITableViewHeaderFooterView {
     
-    private let profileHeaderView = ProfileHeaderView()
+    var signOut: (() -> Void)?
+    
+    private var profileHeaderView = ProfileHeaderView()
     
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         
+        profileHeaderView.signOut = logOut
         contentView.addSubview(profileHeaderView)
         setupProfileHeaderView()
     }
     
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        
-
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func logOut() {
+        signOut!()
     }
     
     private func setupProfileHeaderView() {
@@ -39,4 +45,3 @@ class ProfileTableHeaderView: UITableViewHeaderFooterView {
         }
     }
 }
-
