@@ -18,7 +18,7 @@ class LogInViewController: UIViewController {
         return imageView
     }()
     
-    private let emailOrPhoneTextField: UITextField = {
+    private let emailTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.backgroundColor = .none
@@ -26,7 +26,7 @@ class LogInViewController: UIViewController {
         textField.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         textField.autocapitalizationType = .none
         textField.tintColor = UIColor.init(named: "accentColor")
-        textField.placeholder = "Email or phone"
+        textField.placeholder = "Email"
         return textField
     }()
     
@@ -90,25 +90,6 @@ class LogInViewController: UIViewController {
     }()
     
     var delegate: LoginViewControllerDelegate?
-    
-    private let bruteForceButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Подобрать пароль", for: .normal)
-        button.setTitleColor(.link, for: .normal)
-        button.addTarget(self, action: #selector(bruteForceStart), for: .touchUpInside)
-        return button
-    }()
-    
-    private var password: String = ""
-    
-    private let dispatchQueue = DispatchQueue(label: "Background", qos: .background, attributes: .concurrent)
-    
-    private let activityIndicator: UIActivityIndicatorView = {
-        let indicator = UIActivityIndicatorView()
-        indicator.translatesAutoresizingMaskIntoConstraints = false
-        return indicator
-    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -123,11 +104,9 @@ class LogInViewController: UIViewController {
         contentView.addSubview(logoImageView)
         contentView.addSubview(loginPasswordView)
         contentView.addSubview(logInButton)
-        contentView.addSubview(emailOrPhoneTextField)
+        contentView.addSubview(emailTextField)
         contentView.addSubview(passwordTextField)
         contentView.addSubview(lineView)
-        contentView.addSubview(bruteForceButton)
-        contentView.addSubview(activityIndicator)
         
         let contraints = [
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -142,7 +121,6 @@ class LogInViewController: UIViewController {
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
             contentView.heightAnchor.constraint(equalTo: scrollView.heightAnchor),
             
-                        
             logoImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 120),
             logoImageView.widthAnchor.constraint(equalToConstant: 100),
             logoImageView.heightAnchor.constraint(equalToConstant: 100),
@@ -158,20 +136,14 @@ class LogInViewController: UIViewController {
             logInButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             logInButton.heightAnchor.constraint(equalToConstant: 50),
             
-            bruteForceButton.topAnchor.constraint(equalTo: logInButton.bottomAnchor, constant: 16),
-            bruteForceButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            
-            activityIndicator.leadingAnchor.constraint(equalTo: bruteForceButton.trailingAnchor, constant: 8),
-            activityIndicator.centerYAnchor.constraint(equalTo: bruteForceButton.centerYAnchor),
-            
             lineView.centerYAnchor.constraint(equalTo: loginPasswordView.centerYAnchor),
             lineView.leadingAnchor.constraint(equalTo: loginPasswordView.leadingAnchor),
             lineView.trailingAnchor.constraint(equalTo: loginPasswordView.trailingAnchor),
             lineView.heightAnchor.constraint(equalToConstant: 0.5),
             
-            emailOrPhoneTextField.leadingAnchor.constraint(equalTo: loginPasswordView.leadingAnchor, constant: 10),
-            emailOrPhoneTextField.trailingAnchor.constraint(equalTo: loginPasswordView.trailingAnchor, constant: -10),
-            emailOrPhoneTextField.centerYAnchor.constraint(equalTo: loginPasswordView.centerYAnchor, constant: -25),
+            emailTextField.leadingAnchor.constraint(equalTo: loginPasswordView.leadingAnchor, constant: 10),
+            emailTextField.trailingAnchor.constraint(equalTo: loginPasswordView.trailingAnchor, constant: -10),
+            emailTextField.centerYAnchor.constraint(equalTo: loginPasswordView.centerYAnchor, constant: -25),
             
             passwordTextField.leadingAnchor.constraint(equalTo: loginPasswordView.leadingAnchor, constant: 10),
             passwordTextField.trailingAnchor.constraint(equalTo: loginPasswordView.trailingAnchor, constant: -10),
@@ -183,27 +155,16 @@ class LogInViewController: UIViewController {
     }
     
     @objc func logInButtonPressed () {
-        checkLoginPassword { result in
-            switch result {
-            case .success(_):
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                let profileViewController = storyboard.instantiateViewController(withIdentifier: "ProfileViewController") as UIViewController
-                navigationController?.pushViewController(profileViewController, animated: true)
-            case .failure(_):
-                let alertController = UIAlertController(title: "Ошибка", message: "Неверно введен логин или пароль", preferredStyle: .alert)
-                let acceptAction = UIAlertAction(title: "ОК", style: .default)
-                alertController.addAction(acceptAction)
-                self.present(alertController, animated: true, completion: nil)
-            }
-        }
-    }
-    
-    private func checkLoginPassword(completion: (Result<Bool,LoginPasswordError>) -> Void)  {
-        if self.delegate!.checkLogin(login: emailOrPhoneTextField.text) &&
-            self.delegate!.checkPassword(password: passwordTextField.text) {
-            return completion(.success(true))
+        if emailTextField.text == "" || passwordTextField.text == "" {
+            let alertController = UIAlertController(title: "Ошибка",
+                                                    message: "Необходимо ввести логин и пароль",
+                                                    preferredStyle: .alert)
+            let acceptAction = UIAlertAction(title: "ОК", style: .default)
+            alertController.addAction(acceptAction)
+            self.present(alertController, animated: true, completion: nil)
         } else {
-            return completion(.failure(LoginPasswordError.incorrectLoginOrPassword))
+            self.delegate?.signIn(email: emailTextField.text!,
+                                  password: passwordTextField.text!)
         }
     }
     
@@ -235,60 +196,6 @@ class LogInViewController: UIViewController {
         scrollView.contentInset.bottom = .zero
         scrollView.verticalScrollIndicatorInsets = .zero
     }
-    
-    @objc private func bruteForceStart() {
-        dispatchQueue.async {
-            self.startActivityIndicator()
-            let allowedCharacters: [String] = String().printable.map { String($0) }
-
-            while !LoginChecker.shared.checkLoginPassword(login: nil,
-                                                          password: self.password) {
-                self.password = self.generateBruteForce(self.password, fromArray: allowedCharacters)
-                print(self.password)
-            }
-            self.passwordTransfer(password: self.password)
-        }
-    }
-    
-    private func indexOf(character: Character, _ array: [String]) -> Int {
-        return array.firstIndex(of: String(character))!
-    }
-
-    private func characterAt(index: Int, _ array: [String]) -> Character {
-        return index < array.count ? Character(array[index])
-                                   : Character("")
-    }
-
-    private func generateBruteForce(_ string: String, fromArray array: [String]) -> String {
-        var str: String = string
-
-        if str.count <= 0 {
-            str.append(characterAt(index: 0, array))
-        } else {
-            str.replace(at: str.count - 1,
-                        with: characterAt(index: (indexOf(character: str.last!, array) + 1) % array.count, array))
-
-            if indexOf(character: str.last!, array) == 0 {
-                str = String(generateBruteForce(String(str.dropLast()), fromArray: array)) + String(str.last!)
-            }
-        }
-
-        return str
-    }
-    
-    private func passwordTransfer(password: String) {
-        DispatchQueue.main.async {
-            self.activityIndicator.stopAnimating()
-            self.passwordTextField.isSecureTextEntry = false
-            self.passwordTextField.text = password
-        }
-    }
-        
-    private func startActivityIndicator() {
-        DispatchQueue.main.async {
-            self.activityIndicator.startAnimating()
-        }
-    }
 
 }
 
@@ -299,32 +206,5 @@ func alpha(_ value:CGFloat) -> UIImage {
     let newImage = UIGraphicsGetImageFromCurrentImageContext()
     UIGraphicsEndImageContext()
     return newImage!
-    }
-}
-
-extension String {
-    var digits: String {
-        return "0123456789"
-    }
-    var lowercase: String {
-        return "abcdefghijklmnopqrstuvwxyz"
-    }
-    var uppercase: String {
-        return "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    }
-    var punctuation: String {
-        return "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"
-    }
-    var letters: String {
-        return lowercase + uppercase
-    }
-    var printable: String {
-        return digits + letters + punctuation
-    }
-
-    mutating func replace(at index: Int, with character: Character) {
-        var stringArray = Array(self)
-        stringArray[index] = character
-        self = String(stringArray)
     }
 }

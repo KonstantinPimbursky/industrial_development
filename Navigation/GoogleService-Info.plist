@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>30795380520-k8kofh7r635p2v5c6hons8moinofa5k2.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.30795380520-k8kofh7r635p2v5c6hons8moinofa5k2</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCJ1zNuIlS2A2buRfCt43Z61dFC3gWdnis</string>
+	<key>GCM_SENDER_ID</key>
+	<string>30795380520</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.konstantinpimbursky.Navigation</string>
+	<key>PROJECT_ID</key>
+	<string>konstantinpimburskynavig-b27f3</string>
+	<key>STORAGE_BUCKET</key>
+	<string>konstantinpimburskynavig-b27f3.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:30795380520:ios:1e725e1f3c2573c848421d</string>
+</dict>
+</plist>

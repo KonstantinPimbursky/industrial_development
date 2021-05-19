@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -23,7 +24,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let tabController = window?.rootViewController as? UITabBarController,
            let loginNavigation = tabController.viewControllers?.last as? UINavigationController,
            let loginController = loginNavigation.viewControllers.first as? LogInViewController {
-            loginController.delegate = LoginInspector()
+            loginController.delegate = LoginInspector(navigationController: loginNavigation)
+            if Firebase.Auth.auth().currentUser != nil {
+                let profileViewController = ProfileViewController()
+                let loginInspector = LoginInspector(navigationController: loginNavigation)
+                profileViewController.signOut = loginInspector.signOut
+                loginNavigation.pushViewController(profileViewController, animated: false)
+            }
         }
     }
 
