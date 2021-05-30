@@ -136,20 +136,44 @@
 		B592209725B0AF560040E2D7 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				B5C7EF7B2663E4370041DE61 /* Storage */,
+				B5C7EF7A2663E3330041DE61 /* Photots Collection */,
+				B5C7EF792663E30C0041DE61 /* LogIn */,
 				B5384ECD25CD3F8C00932CCE /* ProfileTableHeaderView.swift */,
 				B5384ECF25CD440000932CCE /* ProfileHeaderView.swift */,
-				B5D90E1725C0721600521116 /* LogInViewController.swift */,
 				B592209A25B0AFBE0040E2D7 /* ProfileViewController.swift */,
 				B5384ECB25CC5F0E00932CCE /* PostTableViewCell.swift */,
 				B5D959C325D1358A00E742AB /* PhotosTableViewCell.swift */,
-				B5384EC925CC018600932CCE /* Storage.swift */,
-				B5D959C525D66A9E00E742AB /* PhotosViewController.swift */,
-				B5D959C725D6C70400E742AB /* PhotosCollectionViewCell.swift */,
-				B5F1DF872605D5AD000B76FA /* LoginViewControllerDelegate.swift */,
-				B5F1DF842605D216000B76FA /* LoginChecker.swift */,
-				B5F1DF8A2605D844000B76FA /* LoginInspector.swift */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		B5C7EF792663E30C0041DE61 /* LogIn */ = {
+			isa = PBXGroup;
+			children = (
+				B5D90E1725C0721600521116 /* LogInViewController.swift */,
+				B5F1DF842605D216000B76FA /* LoginChecker.swift */,
+				B5F1DF8A2605D844000B76FA /* LoginInspector.swift */,
+				B5F1DF872605D5AD000B76FA /* LoginViewControllerDelegate.swift */,
+			);
+			path = LogIn;
+			sourceTree = "<group>";
+		};
+		B5C7EF7A2663E3330041DE61 /* Photots Collection */ = {
+			isa = PBXGroup;
+			children = (
+				B5D959C525D66A9E00E742AB /* PhotosViewController.swift */,
+				B5D959C725D6C70400E742AB /* PhotosCollectionViewCell.swift */,
+			);
+			path = "Photots Collection";
+			sourceTree = "<group>";
+		};
+		B5C7EF7B2663E4370041DE61 /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				B5384EC925CC018600932CCE /* Storage.swift */,
+			);
+			path = Storage;
 			sourceTree = "<group>";
 		};
 		C4A8E7EA8FA4F5EF5E036F29 /* Frameworks */ = {
