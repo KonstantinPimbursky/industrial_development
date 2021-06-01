@@ -11,11 +11,13 @@ import SnapKit
 
 class ProfileTableHeaderView: UITableViewHeaderFooterView {
     
+    var signOut: (() -> Void)?
+    
     private let profileHeaderView = ProfileHeaderView()
     
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
-        
+        profileHeaderView.signOut = logOut
         contentView.addSubview(profileHeaderView)
         setupProfileHeaderView()
     }
@@ -24,6 +26,11 @@ class ProfileTableHeaderView: UITableViewHeaderFooterView {
         super.init(coder: coder)
         
 
+    }
+    
+    private func logOut() {
+        guard let signOut = self.signOut else { return print("Не назначен коллбек для signOut") }
+        signOut()
     }
     
     private func setupProfileHeaderView() {
