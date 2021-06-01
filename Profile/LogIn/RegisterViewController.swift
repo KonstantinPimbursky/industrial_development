@@ -1,27 +1,28 @@
 //
-//  LogInViewController.swift
+//  RegisterViewController.swift
 //  Navigation
 //
-//  Created by Konstantin Pimbursky on 26.01.2021.
+//  Created by Konstantin Pimbursky on 30.05.2021.
 //  Copyright © 2021 Artem Novichkov. All rights reserved.
 //
 
 import UIKit
 import SnapKit
 
-class LogInViewController: UIViewController {
+class RegisterViewController: UIViewController {
     
-    private let logoImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.backgroundColor = .none
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = #imageLiteral(resourceName: "logo")
-        return imageView
+    var delegate: LoginViewControllerDelegate?
+    
+    private let registerLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Регистрация"
+        label.font = UIFont(name: "Helvetica", size: 30)
+        label.textColor = .black
+        return label
     }()
     
     private let emailOrPhoneTextField: UITextField = {
         let textField = UITextField()
-        textField.translatesAutoresizingMaskIntoConstraints = false
         textField.backgroundColor = .none
         textField.textColor = .black
         textField.font = UIFont.systemFont(ofSize: 16, weight: .regular)
@@ -33,7 +34,6 @@ class LogInViewController: UIViewController {
     
     private let passwordTextField: UITextField = {
         let textField = UITextField()
-        textField.translatesAutoresizingMaskIntoConstraints = false
         textField.backgroundColor = .none
         textField.textColor = .black
         textField.font = UIFont.systemFont(ofSize: 16, weight: .regular)
@@ -46,9 +46,8 @@ class LogInViewController: UIViewController {
     
     private let logInButton: UIButton = {
         let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.clipsToBounds = true
-        button.setTitle("Log In", for: .normal)
+        button.setTitle("Зарегистрироваться", for: .normal)
         button.setBackgroundImage(#imageLiteral(resourceName: "blue_pixel"), for: .normal)
         button.setBackgroundImage(#imageLiteral(resourceName: "blue_pixel").alpha(0.8), for: .selected)
         button.setBackgroundImage(#imageLiteral(resourceName: "blue_pixel").alpha(0.8), for: .highlighted)
@@ -61,7 +60,6 @@ class LogInViewController: UIViewController {
     
     private let loginPasswordView: UIView = {
         let someView = UIView()
-        someView.translatesAutoresizingMaskIntoConstraints = false
         someView.clipsToBounds = true
         someView.backgroundColor = .systemGray6
         someView.layer.cornerRadius = 10
@@ -72,59 +70,45 @@ class LogInViewController: UIViewController {
     
     private let lineView: UIView = {
         let someView = UIView()
-        someView.translatesAutoresizingMaskIntoConstraints = false
         someView.backgroundColor = .lightGray
         return someView
     }()
     
     private let scrollView: UIScrollView = {
         let scroll = UIScrollView()
-        scroll.translatesAutoresizingMaskIntoConstraints = false
         scroll.contentInsetAdjustmentBehavior = .automatic
         return scroll
     }()
     
-    private let contentView: UIView = {
-        let contentView = UIView()
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        return contentView
-    }()
-    
-    private let registerNewAccoutButton: UIButton = {
-        let button = UIButton()
-        button.clipsToBounds = true
-        button.setTitle("Зарегистрироваться", for: .normal)
-        button.backgroundColor = .white
-        button.setTitleColor(.systemGray, for: .normal)
-        button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.systemGray.cgColor
-        button.layer.cornerRadius = 10
-        button.setTitleColor(.systemGray, for: .normal)
-        button.addTarget(self, action: #selector(registerNewAccountButtonPressed), for: .touchUpInside)
-        return button
-    }()
-    
-    var delegate: LoginViewControllerDelegate?
-    
-    private var password: String = ""
-    
+    private let contentView = UIView()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        navigationController?.navigationBar.isHidden = true
         view.backgroundColor = .white
         
         view.addSubview(scrollView)
         
         scrollView.addSubview(contentView)
         
-        contentView.addSubview(logoImageView)
+        contentView.addSubview(registerLabel)
         contentView.addSubview(loginPasswordView)
         contentView.addSubview(logInButton)
         contentView.addSubview(emailOrPhoneTextField)
         contentView.addSubview(passwordTextField)
         contentView.addSubview(lineView)
-        contentView.addSubview(registerNewAccoutButton)
+        
+        setupViews()
+    }
+    
+    @objc private func logInButtonPressed() {
+        if let login = emailOrPhoneTextField.text,
+           let password = passwordTextField.text {
+            self.delegate?.saveLoginPassword(login: login, password: password)
+            dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    private func setupViews() {
         
         scrollView.snp.makeConstraints { make in
             make.top.equalToSuperview()
@@ -148,14 +132,13 @@ class LogInViewController: UIViewController {
             make.centerY.equalToSuperview()
         }
         
-        logoImageView.snp.makeConstraints { make in
+        registerLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(120)
-            make.height.width.equalTo(100)
             make.centerX.equalToSuperview()
         }
         
         loginPasswordView.snp.makeConstraints { make in
-            make.top.equalTo(logoImageView.snp.bottom).offset(120)
+            make.top.equalTo(registerLabel.snp.bottom).offset(120)
             make.left.equalToSuperview().offset(16)
             make.right.equalToSuperview().offset(-16)
             make.height.equalTo(100)
@@ -169,63 +152,22 @@ class LogInViewController: UIViewController {
         }
         
         lineView.snp.makeConstraints { make in
-            make.centerY.equalTo(loginPasswordView)
+            make.centerY.equalTo(loginPasswordView.snp.centerY)
             make.left.equalTo(loginPasswordView)
             make.right.equalTo(loginPasswordView)
             make.height.equalTo(0.5)
         }
         
         emailOrPhoneTextField.snp.makeConstraints { make in
-            make.centerY.equalTo(loginPasswordView.snp.centerY).offset(-25)
-            make.left.equalTo(loginPasswordView.snp.left).offset(10)
-            make.right.equalTo(loginPasswordView.snp.right).offset(-10)
+            make.left.equalTo(loginPasswordView).offset(10)
+            make.right.equalTo(loginPasswordView).offset(-10)
+            make.centerY.equalTo(loginPasswordView).offset(-25)
         }
         
         passwordTextField.snp.makeConstraints { make in
-            make.centerY.equalTo(loginPasswordView.snp.centerY).offset(25)
-            make.left.equalTo(loginPasswordView.snp.left).offset(10)
-            make.right.equalTo(loginPasswordView.snp.right).offset(-10)
-        }
-        
-        registerNewAccoutButton.snp.makeConstraints { make in
-            make.top.equalTo(logInButton.snp.bottom).offset(16)
-            make.left.equalToSuperview().offset(16)
-            make.right.equalToSuperview().offset(-16)
-            make.height.equalTo(50)
-        }
-        
-    }
-    
-    @objc func logInButtonPressed () {
-        checkLoginPassword { result in
-            switch result {
-            case .success(_):
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                let profileViewController = storyboard.instantiateViewController(withIdentifier: "ProfileViewController") as UIViewController
-                navigationController?.pushViewController(profileViewController, animated: true)
-            case .failure(_):
-                let alertController = UIAlertController(title: "Ошибка", message: "Неверно введен логин или пароль", preferredStyle: .alert)
-                let acceptAction = UIAlertAction(title: "ОК", style: .default)
-                alertController.addAction(acceptAction)
-                self.present(alertController, animated: true, completion: nil)
-            }
-        }
-    }
-    
-    @objc private func registerNewAccountButtonPressed() {
-        let registerViewController = RegisterViewController()
-        registerViewController.delegate = self.delegate
-        present(registerViewController, animated: true, completion: nil)
-    }
-    
-    private func checkLoginPassword(completion: (Result<Bool,LoginPasswordError>) -> Void)  {
-        if let email = emailOrPhoneTextField.text,
-           let password = passwordTextField.text {
-            if self.delegate!.checkLoginPassword(login: email, password: password) {
-                return completion(.success(true))
-            } else {
-                return completion(.failure(LoginPasswordError.incorrectLoginOrPassword))
-            }
+            make.left.equalTo(loginPasswordView).offset(10)
+            make.right.equalTo(loginPasswordView).offset(-10)
+            make.centerY.equalTo(loginPasswordView).offset(25)
         }
     }
     
@@ -257,14 +199,5 @@ class LogInViewController: UIViewController {
         scrollView.contentInset.bottom = .zero
         scrollView.verticalScrollIndicatorInsets = .zero
     }
-}
 
-extension UIImage {
-func alpha(_ value:CGFloat) -> UIImage {
-    UIGraphicsBeginImageContextWithOptions(size, false, scale)
-    draw(at: CGPoint.zero, blendMode: .normal, alpha: value)
-    let newImage = UIGraphicsGetImageFromCurrentImageContext()
-    UIGraphicsEndImageContext()
-    return newImage!
-    }
 }

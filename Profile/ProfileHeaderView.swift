@@ -10,6 +10,8 @@ import UIKit
 
 class ProfileHeaderView: UIView {
     
+    var signOut: (() -> Void)?
+    
     private let avatarImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = #imageLiteral(resourceName: "white-oriental-cat")
@@ -75,13 +77,30 @@ class ProfileHeaderView: UIView {
         return button
     }()
     
+    private let signOutButton: UIButton = {
+            let button = UIButton()
+            button.addTarget(self, action: #selector(signOutButtonPressed), for: .touchUpInside)
+            button.clipsToBounds = true
+            button.layer.masksToBounds = false
+            button.setTitle("Выход", for: .normal)
+            button.titleLabel?.font = UIFont.systemFont(ofSize: 10)
+            button.backgroundColor = .blue
+            button.tintColor = .white
+            button.layer.cornerRadius = 10
+            button.layer.shadowColor = UIColor.black.cgColor
+            button.layer.shadowRadius = 4
+            button.layer.shadowOffset = CGSize(width: 4, height: 4)
+            button.layer.shadowOpacity = 0.7
+            return button
+        }()
+    
     
     private var statusText = String()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        addSubviews(avatarImageView, fullNameLabel, statusLabel, statusTextField, setStatusButton)
+        addSubviews(avatarImageView, fullNameLabel, statusLabel, statusTextField, setStatusButton, signOutButton)
         setupViews()
     }
     
@@ -105,35 +124,46 @@ class ProfileHeaderView: UIView {
         statusText = textField.text!
     }
     
+    @objc private func signOutButtonPressed() {
+        guard let signOut = self.signOut else { return print("Не назначен коллбек для signOut") }
+        signOut()
+    }
+    
     private func setupViews() {
-        avatarImageView.snp.makeConstraints { (make) -> Void in
+        signOutButton.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(16)
+            make.right.equalToSuperview().offset(-16)
+            make.width.equalTo(50)
+        }
+        
+        avatarImageView.snp.makeConstraints { make in
             make.top.equalTo(self.snp.top).offset(16)
             make.left.equalTo(self.snp.left).offset(16)
             make.height.equalTo(100)
             make.width.equalTo(100)
         }
         
-        fullNameLabel.snp.makeConstraints { (make) -> Void in
+        fullNameLabel.snp.makeConstraints { make in
             make.top.equalTo(self.snp.top).offset(27)
             make.left.equalTo(avatarImageView.snp.right).offset(16)
             make.right.equalTo(self.snp.right).offset(-16)
         }
         
-        setStatusButton.snp.makeConstraints { (make) -> Void in
+        setStatusButton.snp.makeConstraints { make in
             make.top.equalTo(avatarImageView.snp.bottom).offset(40)
             make.left.equalTo(self.snp.left).offset(16)
             make.right.equalTo(self.snp.right).offset(-16)
             make.height.equalTo(50)
         }
         
-        statusTextField.snp.makeConstraints { (make) -> Void in
+        statusTextField.snp.makeConstraints { make in
             make.bottom.equalTo(setStatusButton.snp.top).offset(-16)
             make.left.equalTo(avatarImageView.snp.right).offset(16)
             make.right.equalTo(self.snp.right).offset(-16)
             make.height.equalTo(40)
         }
         
-        statusLabel.snp.makeConstraints { (make) -> Void in
+        statusLabel.snp.makeConstraints { make in
             make.left.equalTo(avatarImageView.snp.right).offset(16)
             make.right.equalTo(self.snp.right).offset(-16)
             make.bottom.equalTo(statusTextField.snp.top).offset(-10)

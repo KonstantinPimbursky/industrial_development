@@ -7,13 +7,51 @@
 //
 
 import Foundation
+import RealmSwift
 
 class LoginInspector: LoginViewControllerDelegate {
-    func checkLogin(login: String?) -> Bool {
-        return LoginChecker.shared.checkLoginPassword(login: login, password: nil)
+    
+    let realm = try? Realm()
+    
+    func checkLoginPassword(login: String, password: String) -> Bool {
+        guard let objects = realm?.objects(LoginPasswordRealmModel.self) else { return false }
+        for value in objects {
+            if value.login == login && value.password == password {
+                do {
+                    realm?.beginWrite()
+                    value.authFlag = true
+                    try realm?.commitWrite()
+                } catch {
+                    print(error.localizedDescription)
+                }
+                return true
+            }
+        }
+        return false
     }
     
-    func checkPassword(password: String?) -> Bool {
-        return LoginChecker.shared.checkLoginPassword(login: nil, password: password)
+    func saveLoginPassword(login: String, password: String) {
+        do {
+            let loginPasswordModel = LoginPasswordRealmModel()
+            loginPasswordModel.authFlag = false
+            loginPasswordModel.login = login
+            loginPasswordModel.password = password
+            realm?.beginWrite()
+            realm?.add(loginPasswordModel)
+            try realm?.commitWrite()
+        } catch {
+            print(error.localizedDescription)
+        }
     }
+    
+    func checkAuth() -> Bool {
+        guard let objects = realm?.objects(LoginPasswordRealmModel.self) else { return false }
+        for value in objects {
+            if value.authFlag {
+                return true
+            }
+        }
+        return false
+    }
+
 }

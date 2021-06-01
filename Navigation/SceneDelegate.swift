@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -24,6 +25,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
            let loginNavigation = tabController.viewControllers?.last as? UINavigationController,
            let loginController = loginNavigation.viewControllers.first as? LogInViewController {
             loginController.delegate = LoginInspector()
+            let realm = try? Realm()
+            guard let objects = realm?.objects(LoginPasswordRealmModel.self) else { return }
+            for value in objects {
+                if value.authFlag {
+                    let profileViewController = ProfileViewController()
+                    loginNavigation.pushViewController(profileViewController, animated: false)
+                }
+            }
         }
     }
 

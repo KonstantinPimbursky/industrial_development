@@ -13,8 +13,6 @@ class ProfileViewController: UIViewController {
     
     private let tableView = UITableView(frame: .zero, style: .grouped)
     
-    private let profileTableHeaderView = ProfileTableHeaderView()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -103,6 +101,7 @@ extension ProfileViewController: UITableViewDelegate {
         guard section == 0 else { return nil }
         let headerView = tableView.dequeueReusableHeaderFooterView(
         withIdentifier: String(describing: ProfileTableHeaderView.self)) as! ProfileTableHeaderView
+        headerView.signOut = { self.navigationController?.popToRootViewController(animated: true) }
         return headerView
     }
     
