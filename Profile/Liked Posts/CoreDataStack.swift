@@ -44,8 +44,14 @@ class CoreDataStack {
         return persistentContainer.newBackgroundContext()
     }
     
-    func fetchLikedPosts() -> [LikedPosts] {
+    func fetchLikedPosts(authorFilter: String?) -> [LikedPosts] {
         let request: NSFetchRequest<LikedPosts> = LikedPosts.fetchRequest()
+        request.fetchBatchSize = 20
+        if let text = authorFilter {
+            let predicate = NSPredicate(format: "%K LIKE %@", #keyPath(LikedPosts.postAuthor), text)
+            request.predicate = predicate
+        }
+        
         do {
             return try viewContext.fetch(request)
         } catch {
@@ -60,16 +66,21 @@ class CoreDataStack {
     }
     
     func createNewLikedPost(post: PostModel) {
-        let newLikedPost = LikedPosts(context: viewContext)
+        let backgroundContext = newBackgroundContext()
+        let newLikedPost = LikedPosts(context: backgroundContext)
         newLikedPost.id = UUID()
         newLikedPost.postAuthor = post.author
         newLikedPost.postDescription = post.description
         newLikedPost.postImage = post.image
         newLikedPost.postLikes = Int16(post.likes)
         newLikedPost.postViews = Int16(post.views)
-        
-        
-        save(context: viewContext)
+        backgroundContext.perform { 
+            do {
+                try backgroundContext.save()
+            } catch let error {
+                print(error)
+            }
+        }
     }
     
     private func save(context: NSManagedObjectContext) {
