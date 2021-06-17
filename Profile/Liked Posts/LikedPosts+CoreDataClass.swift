@@ -10,7 +10,7 @@
 import Foundation
 import CoreData
 
-@objc(LikedPosts)
-public class LikedPosts: NSManagedObject {
+@objc(LikedPost)
+public class LikedPost: NSManagedObject {
 
 }

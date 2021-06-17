@@ -11,10 +11,10 @@ import Foundation
 import CoreData
 
 
-extension LikedPosts {
+extension LikedPost {
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<LikedPosts> {
-        return NSFetchRequest<LikedPosts>(entityName: "LikedPosts")
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<LikedPost> {
+        return NSFetchRequest<LikedPost>(entityName: "LikedPost")
     }
 
     @NSManaged public var id: UUID
@@ -26,6 +26,6 @@ extension LikedPosts {
 
 }
 
-extension LikedPosts : Identifiable {
+extension LikedPost : Identifiable {
 
 }

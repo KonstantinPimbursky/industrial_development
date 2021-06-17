@@ -13,8 +13,9 @@ import CoreData
 class LikedPostsViewController: UIViewController {
     
     private let tableView = UITableView(frame: .zero, style: .grouped)
-    private let coreDataStack = CoreDataStack()
+    private let coreDataStack = (UIApplication.shared.delegate as! AppDelegate).coreDataStack
     private var authorFilter: String? = nil
+    private var likedPosts: [LikedPost] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +25,7 @@ class LikedPostsViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        self.getLikedPosts(filteredBy: authorFilter)
         self.tableView.reloadData()
     }
     
@@ -76,12 +78,13 @@ class LikedPostsViewController: UIViewController {
         tableView.reloadData()
     }
     
-    private func getLikedPosts(authorFilter: String?) -> [LikedPosts] {
-        return coreDataStack.fetchLikedPosts(authorFilter: authorFilter)
+    private func getLikedPosts(filteredBy author: String?) {
+        likedPosts = coreDataStack.fetchLikedPosts(filteredBy: author)
     }
     
-    private func deleteLikedPost(likedPost: LikedPosts) {
+    private func deleteLikedPost(likedPost: LikedPost) {
         coreDataStack.remove(likedPost: likedPost)
+        getLikedPosts(filteredBy: authorFilter)
     }
 
 
@@ -90,14 +93,12 @@ class LikedPostsViewController: UIViewController {
 extension LikedPostsViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let likedPosts = self.getLikedPosts(authorFilter: authorFilter)
         return likedPosts.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: PostTableViewCell = tableView.dequeueReusableCell(withIdentifier: String(describing: PostTableViewCell.self), for: indexPath) as! PostTableViewCell
-        let likedPosts = self.getLikedPosts(authorFilter: authorFilter)
-        let likedPost = likedPosts[indexPath.row]
+        let likedPost = self.likedPosts[indexPath.row]
         let post = PostModel(author: likedPost.postAuthor,
                              description: likedPost.postDescription,
                              image: likedPost.postImage,
@@ -111,8 +112,7 @@ extension LikedPostsViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let delete = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completionHandler) in
-            let likedPosts = self.getLikedPosts(authorFilter: self.authorFilter)
-            let likedPost = likedPosts[indexPath.row]
+            let likedPost = self.likedPosts[indexPath.row]
             self.deleteLikedPost(likedPost: likedPost)
             tableView.deleteRows(at: [indexPath], with: .left)
         }

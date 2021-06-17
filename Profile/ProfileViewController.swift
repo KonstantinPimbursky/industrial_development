@@ -11,10 +11,8 @@ import SnapKit
 
 class ProfileViewController: UIViewController {
     
-    private var onDoubleTapped: (() -> Void)?
-    
     private let tableView = UITableView(frame: .zero, style: .grouped)
-    
+    private let coreDataStack = (UIApplication.shared.delegate as! AppDelegate).coreDataStack
     private let profileTableHeaderView = ProfileTableHeaderView()
     
     override func viewDidLoad() {
@@ -89,23 +87,14 @@ extension ProfileViewController: UITableViewDataSource {
             
             cell.post = post
             
-            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(postTapped))
-            tapGestureRecognizer.numberOfTouchesRequired = 1
-            tapGestureRecognizer.numberOfTapsRequired = 2
-            cell.addGestureRecognizer(tapGestureRecognizer)
-            self.onDoubleTapped = { [weak self] in self?.likedPost(post: post) }
+            cell.onDoubleTapped = { [weak self] post in
+                self?.likedPost(post: post)
+            }
             return cell
         }
     }
     
-    @objc private func postTapped() {
-        if let doubleTapped = self.onDoubleTapped {
-            doubleTapped()
-        }
-    }
-    
     private func likedPost(post: PostModel) {
-        let coreDataStack = CoreDataStack()
         coreDataStack.createNewLikedPost(post: post)
         print("Post is saved to Core Data")
     }
