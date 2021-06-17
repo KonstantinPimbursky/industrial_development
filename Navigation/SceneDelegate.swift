@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         // инициализация LoginInspector
         if let tabController = window?.rootViewController as? UITabBarController,
-           let loginNavigation = tabController.viewControllers?.last as? UINavigationController,
+           let loginNavigation = tabController.viewControllers?[1] as? UINavigationController,
            let loginController = loginNavigation.viewControllers.first as? LogInViewController {
             loginController.delegate = LoginInspector()
         }

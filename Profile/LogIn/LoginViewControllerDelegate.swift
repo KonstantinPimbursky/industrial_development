@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol LoginViewControllerDelegate: class {
-    func checkLogin (login: String?) -> Bool
-    func checkPassword (password: String?) -> Bool
+protocol LoginViewControllerDelegate: AnyObject {
+    func checkLogin(login: String?) -> Bool
+    func checkPassword(password: String?) -> Bool
 }
