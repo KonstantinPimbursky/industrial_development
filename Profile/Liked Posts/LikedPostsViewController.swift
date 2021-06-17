@@ -8,11 +8,15 @@
 
 import UIKit
 import SnapKit
-import CoreData
 
 class LikedPostsViewController: UIViewController {
     
     private let tableView = UITableView(frame: .zero, style: .grouped)
+    private let reuseID = String(describing: PostTableViewCell.self)
+    private let coreDataStack = CoreDataStack()
+    
+    private var likedPosts: [LikedPost] = []
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +26,7 @@ class LikedPostsViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        self.getLikedPosts()
         self.tableView.reloadData()
     }
     
@@ -30,7 +35,7 @@ class LikedPostsViewController: UIViewController {
         tableView.delegate = self
         tableView.register(
             PostTableViewCell.self,
-            forCellReuseIdentifier: String(describing: PostTableViewCell.self)
+            forCellReuseIdentifier: reuseID
         )
     }
     
@@ -44,9 +49,8 @@ class LikedPostsViewController: UIViewController {
         }
     }
     
-    private func getLikedPosts() -> [LikedPosts] {
-        let coreDataStack = CoreDataStack()
-        return coreDataStack.fetchLikedPosts()
+    private func getLikedPosts() {
+        likedPosts = coreDataStack.fetchLikedPosts()
     }
 
 
@@ -55,13 +59,11 @@ class LikedPostsViewController: UIViewController {
 extension LikedPostsViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let likedPosts = self.getLikedPosts()
         return likedPosts.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: PostTableViewCell = tableView.dequeueReusableCell(withIdentifier: String(describing: PostTableViewCell.self), for: indexPath) as! PostTableViewCell
-        let likedPosts = self.getLikedPosts()
         let likedPost = likedPosts[indexPath.row]
         let post = PostModel(author: likedPost.postAuthor,
                              description: likedPost.postDescription,

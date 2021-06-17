@@ -14,8 +14,8 @@ class ProfileViewController: UIViewController {
     private var onDoubleTapped: (() -> Void)?
     
     private let tableView = UITableView(frame: .zero, style: .grouped)
-    
     private let profileTableHeaderView = ProfileTableHeaderView()
+    private let coreDataStack = CoreDataStack()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -105,7 +105,6 @@ extension ProfileViewController: UITableViewDataSource {
     }
     
     private func likedPost(post: PostModel) {
-        let coreDataStack = CoreDataStack()
         coreDataStack.createNewLikedPost(post: post)
         print("Post is saved to Core Data")
     }

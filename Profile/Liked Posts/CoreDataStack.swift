@@ -16,7 +16,7 @@ class CoreDataStack {
          application to it. This property is optional since there are legitimate
          error conditions that could cause the creation of the store to fail.
         */
-        let container = NSPersistentContainer(name: "LikedPostsModel")
+        let container = NSPersistentContainer(name: "LikedPostModel")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 // Replace this implementation with code to handle the error appropriately.
@@ -44,8 +44,8 @@ class CoreDataStack {
         return persistentContainer.newBackgroundContext()
     }
     
-    func fetchLikedPosts() -> [LikedPosts] {
-        let request: NSFetchRequest<LikedPosts> = LikedPosts.fetchRequest()
+    func fetchLikedPosts() -> [LikedPost] {
+        let request: NSFetchRequest<LikedPost> = LikedPost.fetchRequest()
         do {
             return try viewContext.fetch(request)
         } catch {
@@ -53,14 +53,14 @@ class CoreDataStack {
         }
     }
     
-    func remove(likedPost: LikedPosts) {
+    func remove(likedPost: LikedPost) {
         viewContext.delete(likedPost)
         
         save(context: viewContext)
     }
     
     func createNewLikedPost(post: PostModel) {
-        let newLikedPost = LikedPosts(context: viewContext)
+        let newLikedPost = LikedPost(context: viewContext)
         newLikedPost.id = UUID()
         newLikedPost.postAuthor = post.author
         newLikedPost.postDescription = post.description
