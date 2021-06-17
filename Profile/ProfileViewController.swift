@@ -89,18 +89,9 @@ extension ProfileViewController: UITableViewDataSource {
             
             cell.post = post
             
-            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(postTapped))
-            tapGestureRecognizer.numberOfTouchesRequired = 1
-            tapGestureRecognizer.numberOfTapsRequired = 2
-            cell.addGestureRecognizer(tapGestureRecognizer)
-            self.onDoubleTapped = { [weak self] in self?.likedPost(post: post) }
+            cell.onDoubleTapped = { [weak self] post in
+                self?.likedPost(post: post) }
             return cell
-        }
-    }
-    
-    @objc private func postTapped() {
-        if let doubleTapped = self.onDoubleTapped {
-            doubleTapped()
         }
     }
     
