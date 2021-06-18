@@ -12,7 +12,7 @@ import SnapKit
 class ProfileViewController: UIViewController {
     
     private let tableView = UITableView(frame: .zero, style: .grouped)
-    private let coreDataStack = (UIApplication.shared.delegate as! AppDelegate).coreDataStack
+    private let coreDataStack = CoreDataStack()
     private let profileTableHeaderView = ProfileTableHeaderView()
     
     override func viewDidLoad() {
