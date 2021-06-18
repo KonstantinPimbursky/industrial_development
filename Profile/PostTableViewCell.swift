@@ -12,6 +12,8 @@ import iOSIntPackage
 
 class PostTableViewCell: UITableViewCell {
     
+    var onDoubleTapped: ((_ post: PostModel) -> Void)?
+    
     var post: PostModel? {
         didSet {
             postAuthorLabel.text = post?.author
@@ -68,12 +70,21 @@ class PostTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(postTapped))
+        tapGestureRecognizer.numberOfTapsRequired = 2
+        contentView.addGestureRecognizer(tapGestureRecognizer)
         setupViews()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc private func postTapped() {
+        if let doubleTapped = self.onDoubleTapped,
+           let post = post {
+            doubleTapped(post)
+        }
     }
     
     private func setupViews() {

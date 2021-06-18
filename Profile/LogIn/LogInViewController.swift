@@ -10,6 +10,8 @@ import UIKit
 
 class LogInViewController: UIViewController {
     
+    var coreDataStack: CoreDataStack!
+    
     private let logoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .none
@@ -187,7 +189,8 @@ class LogInViewController: UIViewController {
             switch result {
             case .success(_):
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                let profileViewController = storyboard.instantiateViewController(withIdentifier: "ProfileViewController") as UIViewController
+                let profileViewController = storyboard.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
+                profileViewController.coreDataStack = coreDataStack
                 navigationController?.pushViewController(profileViewController, animated: true)
             case .failure(_):
                 let alertController = UIAlertController(title: "Ошибка", message: "Неверно введен логин или пароль", preferredStyle: .alert)
