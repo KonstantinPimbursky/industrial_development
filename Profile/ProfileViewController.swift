@@ -11,13 +11,16 @@ import SnapKit
 
 class ProfileViewController: UIViewController {
     
+    var coreDataStack: CoreDataStack!
+    
     private let tableView = UITableView(frame: .zero, style: .grouped)
-    private let coreDataStack = CoreDataStack()
     private let profileTableHeaderView = ProfileTableHeaderView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        guard coreDataStack != nil else {
+            fatalError("This view needs a Core Data Stack.")
+        }
         view.backgroundColor = .lightGray
         setTableView()
         setupViews()

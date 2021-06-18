@@ -12,13 +12,17 @@ import CoreData
 
 class LikedPostsViewController: UIViewController {
     
+    var coreDataStack: CoreDataStack!
+    
     private let tableView = UITableView(frame: .zero, style: .grouped)
-    private let coreDataStack = CoreDataStack()
     private var authorFilter: String? = nil
     private var likedPosts: [LikedPost] = []
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        guard coreDataStack != nil else {
+            fatalError("This view needs a coreDataStack")
+        }
         setTableView()
         setupViews()
         self.title = "Liked Posts"
